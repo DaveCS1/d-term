@@ -1,0 +1,28 @@
+{
+  "name": "d-term",
+  "version": "3.0.0",
+  "description": "Console management tool built with electron and angular.",
+  "main": "sources/main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "rebuild": "./node_modules/.bin/electron-rebuild ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "console",
+    "management",
+    "tool"
+  ],
+  "author": "Sarto Research",
+  "license": "MIT",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^3.0.4",
+    "electron-rebuild": "^1.8.2"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "electron-window-state": "^5.0.1"
+  }
+}
