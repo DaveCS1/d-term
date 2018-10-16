@@ -51,7 +51,7 @@ npm install --global --production windows-build-tools
 
 MIT License
 
-Copyright (c) 2018 Thiago Alberto Schneider
+Copyright (c) 2018 Sarto Research
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
