@@ -1,6 +1,6 @@
 let mainWindow;
 
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const windowStateManager = require('electron-window-state');
 
 function createMainWindow() {
@@ -14,12 +14,17 @@ function createMainWindow() {
     width: stateManager.width,
     height: stateManager.height,
     x: stateManager.x,
-    y: stateManager.y
+    y: stateManager.y,
+    tite: 'dTerm'
   });
+
+  //mainWindow.setMenu(null);
 
   stateManager.manage(mainWindow);
 
-  mainWindow.loadFile(`${__dirname}/index.html`);
+  mainWindow.loadFile(`${__dirname}/shell/shell.view.html`);
+
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.on('unresponsive', function () {
     console.log('unresponsive');

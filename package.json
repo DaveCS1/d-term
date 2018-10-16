@@ -4,8 +4,7 @@
   "description": "Console management tool built with electron and angular.",
   "main": "sources/main.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
-    "rebuild": "./node_modules/.bin/electron-rebuild ."
+    "start": "./node_modules/.bin/electron ."
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -23,6 +22,8 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.1",
-    "electron-window-state": "^5.0.1"
+    "electron-window-state": "^5.0.1",
+    "node-pty": "^0.7.8",
+    "xterm": "^3.8.0"
   }
 }

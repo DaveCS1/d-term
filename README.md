@@ -3,6 +3,12 @@
 
 ![Overview](/media/dTerm.png?raw=true "Overview")
 
+## TMP DOCS
+
+npm install --global --production windows-build-tools
+./node_modules/.bin/electron-rebuild
+
+
 ## Running
 
 - From Portable Package
@@ -10,7 +16,7 @@
   - Go to the [releases](https://github.com/akasarto/d-term/releases/latest) page and download the corresponding portable _.zip_ file.
   - Extract the files to a location of your choosing and execute _dTerm.exe_.
 
-- From code 
+- From code
   - Get Visual Studio 2017 Community v15.5+.
   - `git clone https://github.com/akasarto/d-term.git`.
   - Make sure nuget packages are set to auto restore.
@@ -37,9 +43,9 @@
 
 ## Quick Overview
 
-![Consoles](/media/dterm1.gif?raw=true "Transparency")  
+![Consoles](/media/dterm1.gif?raw=true "Transparency")
 
-![Arranges](/media/dterm2.gif?raw=true "Minimize / Restore")  
+![Arranges](/media/dterm2.gif?raw=true "Minimize / Restore")
 
 ## License
 
@@ -67,7 +73,7 @@ SOFTWARE.
 
 ## Donation
 
-If you liked this work, please consider a small donation to help keeping it up.  
+If you liked this work, please consider a small donation to help keeping it up.
 
 [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UUA94B6TXGH3L)
 
