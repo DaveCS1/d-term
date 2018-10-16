@@ -1,52 +1,3 @@
-# About
-**dTerm** is a general purpose tool for developers and it's primary intent is to help organize multiple console applications under a single, centralized manager using WPF and ReactiveUI technologies.
-
-![Overview](/media/dTerm.png?raw=true "Overview")
-
-## TMP DOCS
-
-npm install --global --production windows-build-tools
-./node_modules/.bin/electron-rebuild
-
-
-## Running
-
-- From Portable Package
-  - Make sure your system has .Net Framework 4.7 or higher installed.
-  - Go to the [releases](https://github.com/akasarto/d-term/releases/latest) page and download the corresponding portable _.zip_ file.
-  - Extract the files to a location of your choosing and execute _dTerm.exe_.
-
-- From code
-  - Get Visual Studio 2017 Community v15.5+.
-  - `git clone https://github.com/akasarto/d-term.git`.
-  - Make sure nuget packages are set to auto restore.
-  - Set _UI.Wpf_ as the startup project.
-  - Compile and you're good to go.
-  - Hit F5 to start.
-
-## Upcoming changes and features
-
-- Allow consoles to pipe data to the app (IPC).
-- Data export/import features.
-
-## Known Bugs
-
-- App main window may lose focus when exiting/closing consoles.
-
-## Thanks
-
-- [LiteDB](http://www.litedb.org/)
-- [WinApi](https://github.com/prasannavl/WinApi)
-- [MaterialDesignInXamlToolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit)
-- [ReactiveUI](https://reactiveui.net/)
-- [Dragablz](https://github.com/ButchersBoy/Dragablz)
-
-## Quick Overview
-
-![Consoles](/media/dterm1.gif?raw=true "Transparency")
-
-![Arranges](/media/dterm2.gif?raw=true "Minimize / Restore")
-
 ## License
 
 MIT License
@@ -76,4 +27,3 @@ SOFTWARE.
 If you liked this work, please consider a small donation to help keeping it up.
 
 [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UUA94B6TXGH3L)
-
