@@ -1,12 +1,10 @@
 let mainWindow;
 
-const argsParser = require('args');
 const { app, BrowserWindow } = require('electron');
-const windowState = require('electron-window-state');
+const windowStateManager = require('electron-window-state');
+const argsParser = require("args-parser");
 
-const inputs = argsParser.parse(process.argv);
-
-console.log(inputs);
+const params = argsParser(process.argv);
 
 function createMainWindow() {
 
@@ -30,7 +28,11 @@ function createMainWindow() {
   stateManager.manage(mainWindow);
   mainWindow.webContents.openDevTools();
 
-  mainWindow.loadFile(`${__dirname}/dist/index.html`);
+  if (params.dev) {
+    mainWindow.loadURL('http://localhost:4200');
+  } else {
+    mainWindow.loadFile(`${__dirname}/dist/index.html`);
+  }
 
   mainWindow.on('unresponsive', function () {
     console.log('unresponsive');
