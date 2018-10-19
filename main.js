@@ -1,54 +1,15 @@
-let mainWindow;
-
-const { app, BrowserWindow } = require('electron');
-const windowStateManager = require('electron-window-state');
+const { app } = require('electron');
+const mainWindow = require('./main.window');
 const argsParser = require("args-parser");
 
-const params = argsParser(process.argv);
+const args = argsParser(process.argv);
 
-function createMainWindow() {
-
-  let stateManager = new windowStateManager({
-    defaultWidth: 1280,
-    defaultHeight: 800
-  });
-
-  mainWindow = new BrowserWindow({
-    icon: `${__dirname}/src/assets/dterm.ico`,
-    minWidth: 1176,
-    minHeight: 664,
-    width: stateManager.width,
-    height: stateManager.height,
-    x: stateManager.x,
-    y: stateManager.y,
-    tite: 'dTerm'
-  });
-
-  mainWindow.setMenu(null);
-  stateManager.manage(mainWindow);
-  mainWindow.webContents.openDevTools();
-
-  if (params.dev) {
-    mainWindow.loadURL('http://localhost:4200');
-  } else {
-    mainWindow.loadFile(`${__dirname}/dist/index.html`);
-  }
-
-  mainWindow.on('unresponsive', function () {
-    console.log('unresponsive');
-  });
-
-  mainWindow.webContents.on('crashed', function () {
-    console.log('crashed');
-  });
-
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
+if (args.dev){
+  require('electron-reload')(__dirname)
 }
 
-process.on('uncaughtException', function () {
-  console.log('uncaughtException');
+process.on('uncaughtException', function (e, x) {
+  console.log('uncaughtException', e, x);
 });
 
 app.on('window-all-closed', function () {
@@ -59,10 +20,10 @@ app.on('window-all-closed', function () {
 
 app.on('activate', function () {
   if (mainWindow === null) {
-    createMainWindow();
+    mainWindow.create();
   }
 });
 
 app.once('ready', () => {
-  createMainWindow();
+  mainWindow.create();
 });
