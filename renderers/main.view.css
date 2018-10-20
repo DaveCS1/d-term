@@ -1,0 +1,12 @@
+html {
+    overflow-y: hidden;
+}
+
+.main-brand {
+    opacity: .015;
+}
+
+.console-options {
+    margin-right: 35px;
+    margin-bottom: 25px;
+}

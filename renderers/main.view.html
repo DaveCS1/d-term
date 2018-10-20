@@ -4,17 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <title>dTerm</title>
+  <link rel="stylesheet" href="../node_modules/bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="../node_modules/@material/fab/dist/mdc.fab.min.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./main.view.css">
 </head>
 
 <body>
 
-  <div>
+  <section class="hero is-fullheight">
 
-  </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <img src="../assets/dTerm.svg" width="256" height="256" class="main-brand">
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <div class="console-options is-pulled-right">
+        <button class="mdc-fab console-option" data-console-type="cmd" aria-label="Command Prompt">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+  </section>
 
   <script>
+    $ = require('jquery')
     require('./main.view.js')
   </script>
+
 </body>
 
 </html>
