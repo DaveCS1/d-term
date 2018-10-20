@@ -13,8 +13,8 @@ createConsoleInstance = (consoleType) => {
     console.log('Creating instance', consoleType);
 
     let instance = new remote.BrowserWindow({
-        width: 500,
-        height: 350,
+        width: 785,
+        height: 485,
         tite: consoleType,
         parent: remote.getCurrentWindow()
     });
