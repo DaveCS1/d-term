@@ -1,8 +1,7 @@
 const pty = require('node-pty');
 const term = require('xterm').Terminal;
 const { remote } = require('electron');
-const { proposeGeometry } = require('xterm/lib/addons/fit/fit');
-
+const { fit, proposeGeometry } = require('xterm/lib/addons/fit/fit');
 const currentWindow = remote.getCurrentWindow();
 const xterm = new term();
 
@@ -11,7 +10,9 @@ const shell = 'C:\\Users\\akasarto\\scoop\\apps\\git\\2.17.1.windows.2\\bin\\sh.
 const ptyProcess = pty.spawn(shell, [], {
     name: 'xterm-color',
     cwd: process.cwd(),
-    env: process.env
+    env: process.env,
+    cols: 80,
+    rows: 30
 });
 
 xterm.open(document.getElementById('xterm'));
@@ -30,6 +31,11 @@ currentWindow.on('resize', () => {
     }, 100);
 });
 
+currentWindow.on('ready-to-show', () => {
+    resizeTerminal();
+    currentWindow.show();
+});
+
 resizeTerminal = () => {
     let wndSize = currentWindow.getSize();
     let ctnSize = currentWindow.getContentSize();
@@ -40,7 +46,6 @@ resizeTerminal = () => {
     $('.xterm-screen, .xterm-viewport').css(newSize);
     var geometry = proposeGeometry(xterm);
     if (geometry) {
-        xterm.reset();
         xterm._core.renderer.clear();
         xterm.resize(geometry.cols, geometry.rows);
         ptyProcess.resize(geometry.cols, geometry.rows);
