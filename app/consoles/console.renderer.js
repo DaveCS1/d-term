@@ -26,9 +26,7 @@ ptyProcess.on('data', function (data) {
 });
 
 currentWindow.on('resize', () => {
-    setTimeout(() => {
-        resizeTerminal();
-    }, 100);
+    resizeTerminal();
 });
 
 currentWindow.on('ready-to-show', () => {
@@ -46,7 +44,6 @@ resizeTerminal = () => {
     $('.xterm-screen, .xterm-viewport').css(newSize);
     var geometry = proposeGeometry(xterm);
     if (geometry) {
-        xterm._core.renderer.clear();
         xterm.resize(geometry.cols, geometry.rows);
         ptyProcess.resize(geometry.cols, geometry.rows);
     }

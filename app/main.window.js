@@ -1,7 +1,7 @@
 const { BrowserWindow } = require('electron');
 const windowStateManager = require('electron-window-state');
 
-let instance = null;
+exports.instance;
 
 exports.create = () => {
 
@@ -10,7 +10,7 @@ exports.create = () => {
     defaultHeight: 800
   });
 
-  instance = new BrowserWindow({
+  this.instance = new BrowserWindow({
     icon: `${__dirname}/../assets/dterm.ico`,
     minWidth: 1176,
     minHeight: 664,
@@ -21,25 +21,25 @@ exports.create = () => {
     tite: 'dTerm'
   });
 
-  instance.setMenu(null);
+  this.instance.setMenu(null);
   stateManager.manage(this.instance);
-  instance.webContents.openDevTools();
+  //this.instance.webContents.openDevTools();
 
-  instance.loadFile(`${__dirname}/main.renderer.html`);
+  this.instance.loadFile(`${__dirname}/main.renderer.html`);
 
-  instance.on('unresponsive', function (e) {
+  this.instance.on('unresponsive', function (e) {
     console.log('unresponsive', e);
   });
 
-  instance.webContents.on('crashed', function (e) {
+  this.instance.webContents.on('crashed', function (e) {
     console.log('crashed', e);
   });
 
-  instance.on('closed', function () {
-    instance = null;
+  this.instance.on('closed', function () {
+    this.instance = null;
   });
 }
 
 exports.getInstance = () => {
-  return instance;
+  return this.instance;
 }
