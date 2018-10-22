@@ -1,16 +1,14 @@
 const pty = require('node-pty');
 const term = require('xterm').Terminal;
-const { remote } = require('electron');
-const { fit, proposeGeometry } = require('xterm/lib/addons/fit/fit');
+const spawn = require('child_process').spawn;
+const { remote, ipcRenderer } = require('electron');
+const { proposeGeometry } = require('xterm/lib/addons/fit/fit');
 const currentWindow = remote.getCurrentWindow();
 
 const xterm = new term();
-// const xterm = new term({
-//     'theme': { background: '#fdf6e3' }
-// });
 
-//const shell = 'powershell.exe';
-const shell = 'C:\\Users\\akasarto\\scoop\\apps\\git\\2.17.1.windows.2\\bin\\sh.exe';
+const shell = 'powershell.exe';
+//const shell = 'C:\\Users\\akasarto\\scoop\\apps\\git\\2.19.1.windows.1\\bin\\sh.exe';
 
 const ptyProcess = pty.spawn(shell, [], {
     name: 'xterm-color',
@@ -23,6 +21,9 @@ const ptyProcess = pty.spawn(shell, [], {
 xterm.open(document.getElementById('xterm'));
 
 xterm.on('data', (data) => {
+    if (data == '_'){
+        console.log(ptyProcess);
+    }
     ptyProcess.write(data);
 });
 
@@ -30,8 +31,20 @@ ptyProcess.on('data', function (data) {
     xterm.write(data);
 });
 
+ptyProcess.on('exit', function (data) {
+    currentWindow.close();
+});
+
 currentWindow.on('resize', () => {
     resizeTerminal();
+});
+
+currentWindow.on('close', function () {
+    ipcRenderer.send('test', 'Killing pty');
+    if (ptyProcess != null) {
+        ptyProcess.kill();
+        ipcRenderer.send('test', 'Killed pty');
+    }
 });
 
 currentWindow.on('ready-to-show', () => {

@@ -15,7 +15,7 @@ exports.create = (parent, option) => {
   });
 
   this.instance.setMenu(null);
-  //this.instance.webContents.openDevTools();
+  this.instance.webContents.openDevTools();
 
   this.instance.loadFile(`${__dirname}/console.renderer.html`);
 

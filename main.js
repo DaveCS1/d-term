@@ -23,6 +23,10 @@ app.once('ready', () => {
   mainWindow.create();
 });
 
+ipcMain.on('test', (e, data) => {
+  console.log(data);
+});
+
 ipcMain.on('create-console-instance', (event, option) => {
 
   console.log('Creating console', option);
