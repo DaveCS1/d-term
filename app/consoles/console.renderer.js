@@ -44,20 +44,22 @@ currentWindow.on('ready-to-show', () => {
 });
 
 resizeTerminal = () => {
-    let wndSize = currentWindow.getSize();
-    let ctnSize = currentWindow.getContentSize();
-    let newSize = {
-        width: wndSize[0] - (wndSize[0] - ctnSize[0]),
-        height: wndSize[1] - (wndSize[1] - ctnSize[1])
-    };
-    xterm.element.style.height = newSize.height + 'px';
-    $('.xterm-screen, .xterm-viewport').css(newSize);
-    $('xterm-scroll-area').css({
-        height: newSize.height
-    });
-    var geometry = proposeGeometry(xterm);
-    if (geometry) {
-        xterm.resize(geometry.cols, geometry.rows);
-        ptyProcess.resize(geometry.cols, geometry.rows);
-    }
+    setTimeout(() => {
+        let wndSize = currentWindow.getSize();
+        let ctnSize = currentWindow.getContentSize();
+        let newSize = {
+            width: wndSize[0] - (wndSize[0] - ctnSize[0]),
+            height: wndSize[1] - (wndSize[1] - ctnSize[1])
+        };
+        xterm.element.style.height = newSize.height + 'px';
+        $('.xterm-screen, .xterm-viewport').css(newSize);
+        $('xterm-scroll-area').css({
+            height: newSize.height
+        });
+        var geometry = proposeGeometry(xterm);
+        if (geometry) {
+            xterm.resize(geometry.cols, geometry.rows);
+            ptyProcess.resize(geometry.cols, geometry.rows);
+        }
+    }, 100);
 }
