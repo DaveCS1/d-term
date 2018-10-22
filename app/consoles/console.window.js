@@ -5,9 +5,8 @@ exports.instance;
 exports.create = (parent, option) => {
 
   this.instance = new BrowserWindow({
-    width: 980,
-    height: 512,
-    webPreferences: { experimentalCanvasFeatures: true },
+
+    useContentSize: true,
     icon: `${__dirname}/../../assets/dterm.ico`,
     tite: option.name,
     parent: parent,
@@ -15,7 +14,7 @@ exports.create = (parent, option) => {
   });
 
   this.instance.setMenu(null);
-  //this.instance.webContents.openDevTools();
+  this.instance.webContents.openDevTools();
 
   this.instance.loadFile(`${__dirname}/console.renderer.html`);
 
