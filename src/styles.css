@@ -1,2 +1,23 @@
 @import "~bulma/css/bulma.min.css";
 @import "~@mdi/font/css/materialdesignicons.min.css";
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+html, body {
+  overflow: hidden;
+}
+
+.console-options-wrapper {
+  right:25px;
+  bottom: 25px;
+  position: fixed;
+}
