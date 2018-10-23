@@ -1,12 +1,48 @@
-html {
-    overflow-y: hidden;
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 
-.main-brand {
-    opacity: .015;
+html, body {
+  overflow: hidden;
 }
 
-.console-options {
-    margin-right: 35px;
-    margin-bottom: 25px;
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: white;
+}
+
+.console-options-wrapper {
+  right:35px;
+  bottom: 35px;
+  position: fixed;
+  z-index: 9999;
+}
+
+.console-options-wrapper a {
+  border: none !important;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 105px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  z-index: 255;
 }
