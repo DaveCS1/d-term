@@ -2,7 +2,7 @@ const pty = require('node-pty');
 const term = require('xterm').Terminal;
 const { fit } = require('xterm/lib/addons/fit/fit');
 
-module.exports = class Term {
+module.exports = class TermInstance {
 
     constructor(option, element) {
         this._option = option;
@@ -28,7 +28,6 @@ module.exports = class Term {
         });
 
         this._pty.on('exit', (data) => {
-            //currentWindow.close();
         });
     }
 
