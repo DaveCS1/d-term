@@ -1,8 +1,6 @@
 const { BrowserWindow } = require('electron');
 const windowStateManager = require('electron-window-state');
 
-exports.instance;
-
 exports.create = () => {
 
   let stateManager = new windowStateManager({
@@ -43,3 +41,5 @@ exports.create = () => {
 exports.getInstance = () => {
   return this.instance;
 }
+
+exports.instance;

@@ -1,4 +1,4 @@
-const { app, ipcMain } = require('electron');
+const { app } = require('electron');
 const mainWindow = require('./app/main.window');
 
 process.on('uncaughtException', function (e) {
@@ -19,14 +19,4 @@ app.on('activate', function () {
 
 app.once('ready', () => {
   mainWindow.create();
-});
-
-ipcMain.on('test', (e, data) => {
-  console.log(data);
-});
-
-ipcMain.on('create-console-instance', (event, option) => {
-
-  console.log('Creating console', option);
-
 });
