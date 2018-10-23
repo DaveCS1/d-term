@@ -1,7 +1,7 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
-const termInstance = require('./xterm.instance');
-const instance = new termInstance({}, $('#terminal')[0]);
+const XTermInstance = require('./xterm.instance');
+const instance = new XTermInstance({}, $('#terminal')[0]);
 
 currentWindow.on('resize', () => {
 });

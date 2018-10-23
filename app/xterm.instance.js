@@ -2,7 +2,7 @@ const pty = require('node-pty');
 const term = require('xterm').Terminal;
 const { fit } = require('xterm/lib/addons/fit/fit');
 
-module.exports = class TermInstance {
+module.exports = class XTermInstance {
 
     constructor(option, element) {
         this._option = option;
