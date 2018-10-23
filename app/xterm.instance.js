@@ -7,7 +7,9 @@ module.exports = class XTermInstance {
     constructor(option, element) {
         this._option = option;
         this._element = element;
-        this._terminal = new term();
+        this._terminal = new term({
+            theme: { background: '#0a0a0a' }
+        });
 
         this._pty = pty.spawn('powershell.exe', [], {
             name: 'xterm-color',
@@ -31,7 +33,7 @@ module.exports = class XTermInstance {
         });
     }
 
-    initialize() {
+    fixSize() {
         if (!this._terminal) {
             return;
         }

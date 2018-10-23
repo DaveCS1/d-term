@@ -25,24 +25,14 @@ html, body {
     background: white;
 }
 
-.console-options-wrapper {
-  right:35px;
-  bottom: 35px;
-  position: fixed;
-  z-index: 9999;
-}
-
-.console-options-wrapper a {
-  border: none !important;
-}
-
 .fullscreen {
   position: fixed;
-  top: 105px;
-  bottom: 0;
+  top: 100px;
+  bottom: 65px;
   left: 0;
   right: 0;
   width: auto;
   height: auto;
   z-index: 255;
+  margin: 15px;
 }
