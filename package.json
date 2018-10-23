@@ -31,6 +31,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.1",
     "@material/fab": "^0.40.1",
+    "@mdi/font": "^3.0.39",
     "args-parser": "^1.1.0",
     "bulma": "^0.7.2",
     "electron-window-state": "^5.0.2",
@@ -38,6 +39,7 @@
     "lodash": "^4.17.11",
     "node-pty": "^0.7.8",
     "tree-kill": "^1.2.0",
+    "uuid": "^3.3.2",
     "xterm": "^3.8.0"
   }
 }
