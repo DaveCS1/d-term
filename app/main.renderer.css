@@ -27,12 +27,15 @@ html, body {
 
 .fullscreen {
   position: fixed;
-  top: 100px;
-  bottom: 65px;
+  top: 75px;
+  bottom: 40px;
   left: 0;
   right: 0;
   width: auto;
   height: auto;
   z-index: 255;
-  margin: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 7.5px;
+  margin-right: 7.5px;
 }

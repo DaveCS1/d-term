@@ -8,7 +8,7 @@ module.exports = class ConsoleInstance {
         this._option = option;
         this._element = element;
         this._terminal = new term({
-            theme: { background: '#0a0a0a' }
+            theme: { background: '#121212' }
         });
 
         this._pty = pty.spawn('powershell.exe', [], {
