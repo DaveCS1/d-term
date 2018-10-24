@@ -15,3 +15,5 @@ const options = require('./consoles/console.options');
 //instance.fixSize();
 
 options.loadAll();
+
+$('#appVersion').text(remote.app.getVersion());

@@ -49,14 +49,12 @@ exports.loadAll = () => {
     }
 
     options.forEach(option => {
-        let item = `<li>
-            <a title="${option.label}" style="color:${option.color}">
-                <span class="icon">
-                    <i class="mdi ${option.icon}" aria-hidden="true"></i>
-                </span>
-            </a>
-        </li>`;
-
-        $('ul.console-options-list').append(item)
+        let item = `
+        <a class="level-item" aria-label="${option.label}" title="${option.label}">
+            <span class="icon is-large" style="color:${option.color};">
+                <i class="mdi mdi-36px ${option.icon}" aria-hidden="true"></i>
+            </span>
+        </a>`;
+        $('div.console-options-list').append(item)
     });
 }

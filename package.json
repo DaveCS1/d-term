@@ -1,6 +1,6 @@
 {
   "name": "d-term",
-  "version": "3.0.0",
+  "version": "5.0.0",
   "description": "Modern multi console management tool.",
   "main": "main.js",
   "scripts": {

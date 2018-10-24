@@ -14,61 +14,39 @@
 
 <body>
 
-  <section class="hero is-fullheight is-black">
-    <div class="hero-head console-instances-wrapper">
+  <section class="hero is-fullheight is-dark">
 
-      <nav class="level is-margingless is-paddingless">
-        <div class="level-left">
-          <div class="level-item">
-            <img src="../assets/dterm.ico" alt="dTerm" width="24" height="24">
+    <!-- top header -->
+    <div class="hero-head">
+      <nav class="navbar has-background-black">
+        <div class="navbar-brand">
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <nav class="level is-mobile">
+                <div class="level-left console-options-list">
+                  <!-- Console options will be rendered here. -->
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
+      </nav>
+    </div>
 
-        <div class="level-right">
-          <p class="level-item">
-            <div class="console-options-wrapper">
-              <div class="tabs is-boxed is-large is-fullwidth">
-                <ul class="console-options-list">
-                </ul>
-              </div>
-            </div>
-          </p>
+    <!-- Terminal area -->
+    <div class="hero-body"></div>
+
+    <!-- Footer content -->
+    <div class="hero-foot">
+      <nav class="level has-background-black-ter">
+        <div class="level-item is-text-centered">
+          <small>v</small> <strong id="appVersion"></strong>
         </div>
       </nav>
-
-      <div class="tabs is-toggle is-fullwidth">
-        <ul>
-          <li class="is-active">
-            <a>
-              <span class="icon is-small"><i class="mdi mdi-image" aria-hidden="true"></i></span>
-              <span>Pictures</span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <span class="icon is-small"><i class="mdi mdi-music" aria-hidden="true"></i></span>
-              <span>Music</span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <span class="icon is-small"><i class="mdi mdi-film" aria-hidden="true"></i></span>
-              <span>Videos</span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <span class="icon is-small"><i class="mdi mdi-file" aria-hidden="true"></i></span>
-              <span>Documents</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="hero-body is-margingless is-paddingless console-terminal-wrapper">
-      <div id="terminal" class="fullscreen"></div>
-    </div>
-    <div class="hero-foot">
     </div>
   </section>
 
