@@ -45,10 +45,8 @@ consoleOptionAction = ($this) => {
       .appendTo('ul.console-tab-items')
       .addClass('is-active');
 
-    setTimeout(() => {
-      processInstance.initialize();
-      processInstance.fixSize();
-    }, 300);
+    processInstance.initialize();
+    processInstance.fixSize();
   }
 };
 
