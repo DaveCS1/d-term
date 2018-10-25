@@ -1,50 +1,69 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
-// const consoleInstance = require('./consoles/console.instance');
-// const instance = new consoleInstance({}, $('#terminal')[0]);
+const consoleProcess = require('./consoles/console.process');
 const optionsRepository = require('./consoles/console.repository');
 
-// currentWindow.on('resize', () => {
-//     instance.fixSize();
-// });
+currentWindow.on('resize', () => {
+  //instance.fixSize();
+});
 
-// currentWindow.on('close', () => {
-//     instance.terminate();
-// });
-
-// instance.fixSize();
+currentWindow.on('close', () => {
+  //instance.terminate();
+});
 
 // Set version
 $('#appVersion').text(remote.app.getVersion());
 
 // Create console actions handler
-//$('.console-option-action').on('click', function (e) {
 consoleOptionAction = ($this) => {
   let optionId = $this.data('id');
   let optionEntity = optionsRepository.getById(optionId);
-  $(`
-    <li data-item="${optionEntity.id}">
-      <a>
-        <span class="icon is-small">
-          <i class="mdi ${optionEntity.icon}"></i>
-        </span>
-        <span>${optionEntity.label}</span>
-      </a>
-    </li>
-  `)
-  .on('click', function() {
-    consoleTabItemAction($(this));
-  })
-  .appendTo('ul.console-tab-items');
+  let processInstance = new consoleProcess(optionEntity);
+  if (processInstance.canInitialize) {
+    $(`<div />`, {
+      id: processInstance._id,
+      class: "fullscreen terminal-instance"
+    }
+    ).appendTo('div.console-tab-contents');
+
+    $('.console-tab-items li').removeClass('is-active');
+    $('div.terminal-instance').removeClass('is-active');
+
+    $(`
+      <li data-process-id="${processInstance._id}">
+        <a>
+          <span class="icon is-small">
+            <i class="mdi ${optionEntity.icon}"></i>
+          </span>
+          <span>${optionEntity.label}</span>
+        </a>
+      </li>
+    `)
+      .on('click', function () {
+        consoleTabItemAction($(this));
+      })
+      .appendTo('ul.console-tab-items')
+      .addClass('is-active');
+
+    setTimeout(() => {
+      processInstance.initialize();
+      processInstance.fixSize();
+    }, 300);
+  }
 };
 
 // Switch console tab items
-//$('.console-tab-items li').on('click', function (e) {
 consoleTabItemAction = ($this) => {
-  let item = $this.data('item');
+  let processId = $this.data('process-id');
   $('.console-tab-items li').removeClass('is-active');
-  $('.console-tab-contents div').removeClass('is-active');
-  $('div[data-content="' + item + '"]').addClass('is-active');
+  $('div.terminal-instance').removeClass('is-active');
+  // $('div.terminal-instance').fadeOut('slow', function() {
+  //   $(this).removeClass('is-active');
+  //   $(`#${processId}`).fadeIn('slow', function() {
+  //     $(this).addClass('is-active');
+  //   });
+  // });
+  $(`#${processId}`).addClass('is-active');
   $this.addClass('is-active');
 };
 
@@ -59,9 +78,9 @@ $(document).ready(() => {
           </span>
       </a>
     `)
-    .on('click', function() {
-      consoleOptionAction($(this));
-    })
-    .appendTo('div.console-options-list');
+      .on('click', function () {
+        consoleOptionAction($(this));
+      })
+      .appendTo('div.console-options-list');
   });
 });

@@ -48,9 +48,9 @@ html, body {
 }
 
 .console-tab-contents div {
-  display: none;
+  z-index: 0;
 }
 
 .console-tab-contents div.is-active {
-  display: block;
+  z-index: 255;
 }
