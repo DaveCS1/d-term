@@ -39,3 +39,18 @@ html, body {
   margin-left: 7.5px;
   margin-right: 7.5px;
 }
+
+.console-tab-items-wrapper{
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  z-index: 500;
+}
+
+.console-tab-contents div {
+  display: none;
+}
+
+.console-tab-contents div.is-active {
+  display: block;
+}

@@ -1,11 +1,9 @@
+const _ = require('lodash');
 const uuidv1 = require('uuid/v1');
-
 const consoleOptionsKey = 'consoleOptions';
 
-exports.loadAll = () => {
-
+exports.getAll = () => {
     let options = JSON.parse(localStorage.getItem(consoleOptionsKey)) || [];
-
     if (!options || options.length <= 0) {
         if (process.platform == 'win32') {
             options.push({
@@ -47,14 +45,10 @@ exports.loadAll = () => {
         }
         localStorage.setItem(consoleOptionsKey, JSON.stringify(options));
     }
+    return options;
+}
 
-    options.forEach(option => {
-        let item = `
-        <a class="level-item" aria-label="${option.label}" title="${option.label}">
-            <span class="icon is-large" style="color:${option.color};">
-                <i class="mdi mdi-36px ${option.icon}" aria-hidden="true"></i>
-            </span>
-        </a>`;
-        $('div.console-options-list').append(item)
-    });
+exports.getById = (optionId) => {
+    let options = JSON.parse(localStorage.getItem(consoleOptionsKey)) || [];
+    return _.find(options, item => item.id == optionId);
 }

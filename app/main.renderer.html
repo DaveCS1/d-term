@@ -27,7 +27,7 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <nav class="level is-mobile">
-                <div class="level-left console-options-list">
+                <div class="level-item console-options-list">
                   <!-- Console options will be rendered here. -->
                 </div>
               </nav>
@@ -38,8 +38,11 @@
     </div>
 
     <!-- Terminal area -->
-    <div class="hero-body has-background-black-bis">
-      <div id="terminal" class="fullscreen"></div>
+    <div class="hero-body has-background-black-bis console-tab-contents">
+      <div id="terminal1" class="fullscreen is-active" data-content="1">1</div>
+      <div id="terminal2" class="fullscreen" data-content="2">2</div>
+      <div id="terminal3" class="fullscreen" data-content="3">3</div>
+      <div id="terminal4" class="fullscreen" data-content="4">4</div>
     </div>
 
     <!-- Footer content -->
@@ -51,6 +54,13 @@
       </nav>
     </div>
   </section>
+
+  <div class="console-tab-items-wrapper">
+    <div class="tabs is-toggle is-toggle-rounded has-background-black">
+      <ul class="console-tab-items">
+      </ul>
+    </div>
+  </div>
 
   <script>
     $ = require('jquery')
