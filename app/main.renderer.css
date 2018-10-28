@@ -48,8 +48,8 @@ div.hero-foot {
 
 .fullscreen {
   position: fixed;
-  top: 130px;
-  bottom: 45px;
+  top: 135px;
+  bottom: 50px;
   left: 0;
   right: 0;
   width: auto;
@@ -74,6 +74,6 @@ div.hero-foot {
 }
 
 .tabs .console-tab-items li.is-active a {
-  border-bottom: 3px solid white;
-  color: white;
+  border-bottom: 3px solid #00d1b2;
+  color: #00d1b2;
 }
