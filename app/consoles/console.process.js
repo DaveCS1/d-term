@@ -38,7 +38,7 @@ module.exports = class ConsoleProcess {
         this._element = document.getElementById(this._id);
 
         this._terminal = new term({
-            theme: { background: '#121212' }
+            theme: { background: '#242424' }
         });
 
         this._terminal.open(this._element);
