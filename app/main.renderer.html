@@ -6,8 +6,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../node_modules/bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="../node_modules/bulma-divider/dist/css/bulma-divider.min.css">
+  <link rel="stylesheet" href="../node_modules/bulma-tooltip/dist/css/bulma-tooltip.min.css">
   <link rel="stylesheet" href="../node_modules/@mdi/font/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="../node_modules/xterm/dist/xterm.css">
   <link rel="stylesheet" href="./main.renderer.css">
 </head>
@@ -18,15 +19,25 @@
 
     <!-- top header -->
     <div class="hero-head">
-      <nav class="navbar">
+
+      <nav class="navbar main-nav">
         <div class="navbar-brand">
+          <div class="navbar-item">
+            <a class="settings-action">
+              <span class="icon is-medium has-text-grey">
+                <i class="mdi mdi-24px mdi-dots-vertical" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
         </div>
         <div class="navbar-menu">
           <div class="navbar-start">
+            <div class="navbar-item">
+            </div>
           </div>
           <div class="navbar-end">
             <div class="navbar-item">
-              <nav class="level is-mobile">
+              <nav class="level is-mobile has-text-centered">
                 <div class="level-item console-options-list">
                 </div>
               </nav>
@@ -34,28 +45,60 @@
           </div>
         </div>
       </nav>
+      <div class="tabs is-mobile has-background-black-bis">
+        <ul class="console-tab-items">
+        </ul>
+      </div>
     </div>
 
     <!-- Terminal area -->
-    <div class="hero-body has-background-black-bis console-tab-contents">
+    <div class="hero-body has-background-black-bis console-terminals-list">
     </div>
 
     <!-- Footer content -->
     <div class="hero-foot">
       <nav class="level">
-        <div class="level-item is-text-centered">
-          <small>version</small>&nbsp;<strong id="appVersion"></strong>
+        <div class="level-left">
+          <div class="level-item">
+            <a class="project-source-action tooltip is-tooltip-right is-tooltip-primary" data-tooltip="Project source code">
+              <span class="icon is-medium has-text-white">
+                <i class="mdi mdi-24px mdi-github-circle" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="level-right">
+          <p class="level-item">
+            <small>version</small>&nbsp;<strong id="appVersion"></strong>
+          </p>
         </div>
       </nav>
     </div>
+
   </section>
 
-  <div class="console-tab-items-wrapper">
-    <div class="tabs is-toggle is-toggle-rounded has-background-black is-fullwidth">
-      <ul class="console-tab-items">
-      </ul>
-    </div>
-  </div>
+  <script id="consoleOptionTpl" type="text/template">
+    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-id="{{id}}">
+      <span class="icon is-medium" style="color:{{color}};">
+          <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
+      </span>
+    </a>
+  </script>
+
+  <script id="consoleTabItemTpl" type="text/template">
+    <li data-process-id="{{_id}}" class="is-active">
+      <a>
+        <span class="icon is-small" style="color:{{color}};">
+          <i class="mdi {{icon}}"></i>
+        </span>
+        <span>{{label}}</span>
+      </a>
+    </li>
+  </script>
+
+  <script id="consoleTerminalTpl" type="text/template">
+    <div id="{{_id}}" class="fullscreen terminal-instance"></div>
+  </script>
 
   <script>
     $ = require('jquery')

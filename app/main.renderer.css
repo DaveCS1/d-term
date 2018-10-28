@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-border-radius: 0 !important;
-	-moz-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
@@ -25,10 +25,31 @@ html, body {
     background: white;
 }
 
+nav.main-nav {
+  border-bottom: 1px solid white;
+}
+
+div.hero-foot {
+  border-top: 1px solid white;
+  padding: 3.5px;
+}
+
+.console-tab-items {
+  margin: 15px;
+}
+
+.console-option-action {
+  margin-left: 15px;
+}
+
+.console-option-settings {
+  margin-left: 10px;
+}
+
 .fullscreen {
   position: fixed;
-  top: 75px;
-  bottom: 40px;
+  top: 130px;
+  bottom: 45px;
   left: 0;
   right: 0;
   width: auto;
@@ -40,17 +61,19 @@ html, body {
   margin-right: 7.5px;
 }
 
-.console-tab-items-wrapper{
-  position: fixed;
-  bottom: 50px;
-  left: 50px;
-  z-index: 500;
-}
-
-.console-tab-contents div {
+.console-terminals-list div {
   z-index: 0;
 }
 
-.console-tab-contents div.is-active {
+.console-terminals-list div.is-active {
   z-index: 255;
+}
+
+.tabs .console-tab-items li a {
+  border-bottom: 3px solid transparent;
+}
+
+.tabs .console-tab-items li.is-active a {
+  border-bottom: 3px solid white;
+  color: white;
 }

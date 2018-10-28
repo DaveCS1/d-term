@@ -6,9 +6,9 @@ const uuidv1 = require('uuid/v1');
 
 module.exports = class ConsoleProcess {
 
-    constructor(instanceOption) {
+    constructor(consoleOption) {
         this._id = uuidv1();
-        this._option = instanceOption;
+        this._option = Object.assign({}, consoleOption);
         this._pty = pty.spawn(this._option.cwd, [], {
             name: 'xterm-color',
             cwd: process.cwd(),
@@ -20,6 +20,18 @@ module.exports = class ConsoleProcess {
 
     get canInitialize() {
         return this._pty.pid > 0;
+    }
+
+    get label() {
+        return this._option.label;
+    }
+
+    get icon() {
+        return this._option.icon;
+    }
+
+    get color() {
+        return this._option.color;
     }
 
     initialize() {

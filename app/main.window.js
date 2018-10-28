@@ -21,7 +21,6 @@ exports.create = () => {
 
   this.instance.setMenu(null);
   stateManager.manage(this.instance);
-  this.instance.webContents.openDevTools();
 
   this.instance.loadFile(`${__dirname}/main.renderer.html`);
 
