@@ -33,6 +33,7 @@
     "@mdi/font": "^3.0.39",
     "args-parser": "^1.1.0",
     "bulma": "^0.7.2",
+    "bulma-quickview": "^2.0.0",
     "bulma-tooltip": "^2.0.2",
     "electron-window-state": "^5.0.2",
     "jquery": "^3.3.1",

@@ -6,8 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../node_modules/bulma/css/bulma.min.css">
-  <link rel="stylesheet" href="../node_modules/bulma-divider/dist/css/bulma-divider.min.css">
   <link rel="stylesheet" href="../node_modules/bulma-tooltip/dist/css/bulma-tooltip.min.css">
+  <link rel="stylesheet" href="../node_modules/bulma-quickview/dist/css/bulma-quickview.min.css">
   <link rel="stylesheet" href="../node_modules/@mdi/font/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../node_modules/xterm/dist/xterm.css">
   <link rel="stylesheet" href="./main.renderer.css">
@@ -37,7 +37,7 @@
                 <div class="level-item console-options-list">
                 </div>
                 <div class="level-item">
-                  <a class="settings-action">
+                  <a data-show="quickview" data-target="settings-panel">
                     <span class="icon is-medium has-text-grey">
                       <i class="mdi mdi-24px mdi-dots-horizontal" aria-hidden="true"></i>
                     </span>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </nav>
-      <div class="tabs is-mobile has-background-black-bis">
+      <div class="tabs is-mobile has-background-dark console-tab-items-wrapper">
         <ul class="console-tab-items">
         </ul>
       </div>
@@ -80,6 +80,24 @@
 
   </section>
 
+  <div id="settings-panel" class="quickview">
+    <header class="quickview-header has-background-black">
+      <p class="title has-text-white">
+        <span class="icon">
+          <i class="mdi mdi-dots-horizontal" aria-hidden="true"></i>
+        </span>
+        Settings
+      </p>
+      <span class="delete" data-dismiss="quickview"></span>
+    </header>
+    <div class="quickview-body has-background-black">
+      <div class="quickview-block">
+      </div>
+    </div>
+    <footer class="quickview-footer has-background-black">
+    </footer>
+  </div>
+
   <script id="consoleOptionTpl" type="text/template">
     <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-id="{{id}}">
       <span class="icon is-medium" style="color:{{color}};">
@@ -103,9 +121,11 @@
     <div id="{{_id}}" class="fullscreen terminal-instance"></div>
   </script>
 
+  <script type="text/javascript" src="../node_modules/bulma-quickview/dist/js/bulma-quickview.min.js"></script>
+
   <script>
-    $ = require('jquery')
-    require('./main.renderer.js')
+    $ = require('jquery');
+    require('./main.renderer.js');
   </script>
 
 </body>

@@ -2,6 +2,7 @@ const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
 const consoleProcess = require('./consoles/console.process');
 const optionsRepository = require('./consoles/console.repository');
+//const quickView = require('bulma-quickview')();
 const mustache = require('mustache');
 
 currentWindow.on('resize', () => {
@@ -17,8 +18,6 @@ consoleOptionAction = ($this) => {
   let optionId = $this.data('id');
   let optionEntity = optionsRepository.getById(optionId);
   let processInstance = new consoleProcess(optionEntity);
-  console.log(optionEntity);
-  console.log(processInstance);
   if (processInstance.canInitialize) {
     let tabItemTpl = $('#consoleTabItemTpl').html();
     let terminalTpl = $('#consoleTerminalTpl').html();
@@ -45,6 +44,8 @@ consoleTabItemAction = ($this) => {
 };
 
 // Initialize renderer
+let sidePanels = bulmaQuickview.attach();
+
 let options = optionsRepository.getAll();
 
 options.forEach(option => {
@@ -63,4 +64,8 @@ $('a.settings-action').on('click', () => {
 
 $('a.project-source-action').on('click', () => {
   remote.shell.openExternal('https://github.com/akasarto/d-term');
+});
+
+$('#quickviewDefault').on('click', function() {
+
 });

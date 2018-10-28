@@ -80,3 +80,20 @@ div.hero-foot {
 .tabs .console-tab-items li a {
   border-bottom: none;
 }
+
+.console-tab-items-wrapper {
+  height: 70px;
+}
+
+.quickview-header {
+  height: 53px;
+}
+
+.quickview-header {
+  border-bottom: 1px solid white;
+}
+
+footer.quickview-footer {
+  min-height: 37px;
+  border-top: 1px solid white;
+}
