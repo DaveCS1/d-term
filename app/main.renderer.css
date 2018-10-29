@@ -102,3 +102,15 @@ footer.quickview-footer {
   min-height: 37px;
   border-top: none;
 }
+
+.console-options-table td, .table th {
+  vertical-align: middle;
+}
+
+.config-options-action {
+  margin-top: 25px;
+}
+
+.console-options-modal {
+  z-index: 10000;
+}

@@ -64,11 +64,14 @@ $(document).ready(function () {
   let consoleOptions = consolesRepository.getAll();
 
   consoleOptions.forEach(option => {
-    let template = $('#consoleOptionTpl').html();
-    let optionData = mustache.render(template, option);
-    $(optionData).on('click', function () {
+    let optionTop = $('#consoleOptionsMenutemTpl').html();
+    let optionTopData = mustache.render(optionTop, option);
+    let optionSettings =$('#consoleOptionsTableItemTpl').html();
+    let optionSettingsData = mustache.render(optionSettings, option);
+    $(optionTopData).on('click', function () {
       consoleOptionAction($(this));
     }).appendTo('div.console-options-list');
+    $(optionSettingsData).appendTo('.console-options-table tbody');
   });
 
   $('#appVersion').text(remote.app.getVersion());
@@ -77,12 +80,16 @@ $(document).ready(function () {
     currentWindow.webContents.toggleDevTools();
   });
 
-  $('a.project-source-action').on('click', () => {
-    remote.shell.openExternal('https://github.com/akasarto/d-term');
+  $('a.config-options-action').on('click', () => {
+    $('.console-options-modal').addClass('is-active');
   });
 
-  $('#quickviewDefault').on('click', function () {
+  $('.console-options-modal a.modal-close').on('click', () => {
+    $('.console-options-modal').removeClass('is-active');
+  });
 
+  $('a.project-source-action').on('click', () => {
+    remote.shell.openExternal('https://github.com/akasarto/d-term');
   });
 
 });
