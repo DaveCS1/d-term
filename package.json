@@ -39,6 +39,7 @@
     "electron-window-state": "^5.0.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
+    "monaco-editor": "^0.14.3",
     "mustache": "^3.0.0",
     "node-pty": "^0.7.8",
     "tree-kill": "^1.2.0",
