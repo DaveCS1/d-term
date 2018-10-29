@@ -85,15 +85,19 @@ div.hero-foot {
   height: 70px;
 }
 
+.quickview {
+  z-index: 500;
+}
+
 .quickview-header {
   height: 53px;
 }
 
 .quickview-header {
-  border-bottom: 1px solid white;
+  border-bottom: none;
 }
 
 footer.quickview-footer {
   min-height: 37px;
-  border-top: 1px solid white;
+  border-top: none;
 }
