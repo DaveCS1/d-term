@@ -1,24 +1,39 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
+const consolesRepository = require('./consoles/console.repository');
 const consoleProcess = require('./consoles/console.process');
-const optionsRepository = require('./consoles/console.repository');
 //const quickView = require('bulma-quickview')();
 const mustache = require('mustache');
 
+let processInstances = [];
+
 currentWindow.on('resize', () => {
-  //instance.fixSize();
+  processInstances.forEach(instance => {
+    instance.fixSize();
+  });
 });
 
 currentWindow.on('close', () => {
-  //instance.terminate();
+  processInstances.forEach(instance => {
+    instance.terminate();
+  });
 });
 
 // Create console process
 consoleOptionAction = ($this) => {
-  let optionId = $this.data('id');
-  let optionEntity = optionsRepository.getById(optionId);
+  let optionId = $this.data('option-id');
+  let optionEntity = consolesRepository.getById(optionId);
   let processInstance = new consoleProcess(optionEntity);
-  if (processInstance.canInitialize) {
+  if (processInstance.id) {
+    let termId = `pid${processInstance.id}`;
+    processInstance.on('process-exited', (pid) => {
+      if (currentWindow.webContents.isDevToolsOpened()){
+        console.log('Process exited [id/pid]', pid);
+      }
+      $(`li[data-pid='${pid}']`).remove();
+      $(`#${termId}`).remove();
+    });
+    processInstances.push(processInstance);
     let tabItemTpl = $('#consoleTabItemTpl').html();
     let terminalTpl = $('#consoleTerminalTpl').html();
     let tabItemData = mustache.render(tabItemTpl, processInstance);
@@ -29,43 +44,45 @@ consoleOptionAction = ($this) => {
     $(tabItemData).on('click', function () {
       consoleTabItemAction($(this));
     }).appendTo('ul.console-tab-items');
-    processInstance.initialize();
-    processInstance.fixSize();
+    processInstance.initialize(termId);
   }
 };
 
 // Switch console tab items
 consoleTabItemAction = ($this) => {
-  let processId = $this.data('process-id');
+  let processId = $this.data('pid');
   $('.console-tab-items li').removeClass('is-active');
   $('div.terminal-instance').removeClass('is-active');
-  $(`#${processId}`).addClass('is-active');
+  $(`#pid${processId}`).addClass('is-active');
   $this.addClass('is-active');
 };
 
 // Initialize renderer
-let sidePanels = bulmaQuickview.attach();
+$(document).ready(function () {
 
-let options = optionsRepository.getAll();
+  let sidePanels = bulmaQuickview.attach();
+  let consoleOptions = consolesRepository.getAll();
 
-options.forEach(option => {
-  let template = $('#consoleOptionTpl').html();
-  let optionData = mustache.render(template, option);
-  $(optionData).on('click', function () {
-    consoleOptionAction($(this));
-  }).appendTo('div.console-options-list');
-});
+  consoleOptions.forEach(option => {
+    let template = $('#consoleOptionTpl').html();
+    let optionData = mustache.render(template, option);
+    $(optionData).on('click', function () {
+      consoleOptionAction($(this));
+    }).appendTo('div.console-options-list');
+  });
 
-$('#appVersion').text(remote.app.getVersion());
+  $('#appVersion').text(remote.app.getVersion());
 
-$('a.settings-action').on('click', () => {
-  currentWindow.webContents.toggleDevTools();
-});
+  $('a.toggle-devtools-action').on('click', () => {
+    currentWindow.webContents.toggleDevTools();
+  });
 
-$('a.project-source-action').on('click', () => {
-  remote.shell.openExternal('https://github.com/akasarto/d-term');
-});
+  $('a.project-source-action').on('click', () => {
+    remote.shell.openExternal('https://github.com/akasarto/d-term');
+  });
 
-$('#quickviewDefault').on('click', function() {
+  $('#quickviewDefault').on('click', function () {
+
+  });
 
 });

@@ -99,7 +99,7 @@
   </div>
 
   <script id="consoleOptionTpl" type="text/template">
-    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-id="{{id}}">
+    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
       <span class="icon is-medium" style="color:{{color}};">
           <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
       </span>
@@ -107,7 +107,7 @@
   </script>
 
   <script id="consoleTabItemTpl" type="text/template">
-    <li data-process-id="{{_id}}" class="is-active">
+    <li data-pid="{{id}}" class="is-active">
       <a>
         <span class="icon is-small" style="color:{{color}};">
           <i class="mdi {{icon}}"></i>
@@ -118,7 +118,7 @@
   </script>
 
   <script id="consoleTerminalTpl" type="text/template">
-    <div id="{{_id}}" class="fullscreen terminal-instance"></div>
+    <div id="pid{{id}}" class="fullscreen terminal-instance"></div>
   </script>
 
   <script type="text/javascript" src="../node_modules/bulma-quickview/dist/js/bulma-quickview.min.js"></script>

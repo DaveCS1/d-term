@@ -1,5 +1,9 @@
-const { app } = require('electron');
+const { app, ipcMain } = require('electron');
 const mainWindow = require('./app/main.window');
+
+ipcMain.on('info', (e, data) => {
+  console.log(e.sender, data);
+});
 
 process.on('uncaughtException', function (e) {
   console.log('uncaughtException', e);

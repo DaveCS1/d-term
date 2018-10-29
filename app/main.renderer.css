@@ -87,6 +87,7 @@ div.hero-foot {
 
 .quickview {
   z-index: 500;
+  border-left: 1px solid white;
 }
 
 .quickview-header {
