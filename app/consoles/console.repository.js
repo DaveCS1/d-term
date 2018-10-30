@@ -7,28 +7,28 @@ exports.getAll = () => {
     if (!options || options.length <= 0) {
         if (process.platform == 'win32') {
             options.push({
-                id: uuidv1(),
+                id: 1,
                 cwd: 'cmd.exe',
                 icon: 'mdi-console',
                 label: 'Command Prompt',
                 color: '#eeeeee'
             });
             options.push({
-                id: uuidv1(),
+                id: 2,
                 cwd: 'C:\\Users\\akasarto\\scoop\\apps\\git\\2.19.1.windows.1\\bin\\sh.exe',
                 icon: 'mdi-git',
                 label: 'Git Bash',
                 color: '#e24329'
             });
             options.push({
-                id: uuidv1(),
+                id: 3,
                 cwd: 'powershell.exe',
                 icon: 'mdi-powershell',
                 label: 'PowerShell',
                 color: '#0168b3'
             });
             options.push({
-                id: uuidv1(),
+                id: 4,
                 cwd: 'bash.exe',
                 icon: 'mdi-ubuntu',
                 label: 'WSL Bash (Ubuntu)',
@@ -36,7 +36,7 @@ exports.getAll = () => {
             });
         } else {
             options.push({
-                id: uuidv1(),
+                id: 1,
                 cwd: process.env['SHELL'],
                 icon: 'mdi-console-line',
                 label: 'Shell',

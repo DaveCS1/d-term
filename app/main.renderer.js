@@ -1,10 +1,10 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
-const quickViewPanels = require('../node_modules/bulma-quickview/dist/js/bulma-quickview');
 const consolesRepository = require('./consoles/console.repository');
 const consoleProcess = require('./consoles/console.process');
 const monacoEditor = require('./monaco.editor');
 const mustache = require('mustache');
+const logger = require('./logger');
 
 let processInstances = [];
 
@@ -28,9 +28,7 @@ consoleOptionAction = ($this) => {
   if (processInstance.id) {
     let termId = `pid${processInstance.id}`;
     processInstance.on('process-exited', (pid) => {
-      if (currentWindow.webContents.isDevToolsOpened()){
-        console.log('Process exited [id/pid]', pid);
-      }
+      logger.log(`Process exited [PID: ${pid}]`);
       $(`li[data-pid='${pid}']`).remove();
       $(`#${termId}`).remove();
     });
@@ -61,18 +59,14 @@ consoleTabItemAction = ($this) => {
 // Initialize renderer
 $(document).ready(function () {
 
-  let sidePanels = quickViewPanels.attach();
   let consoleOptions = consolesRepository.getAll();
 
   consoleOptions.forEach(option => {
     let optionTop = $('#consoleOptionsMenutemTpl').html();
     let optionTopData = mustache.render(optionTop, option);
-    let optionSettings =$('#consoleOptionsTableItemTpl').html();
-    let optionSettingsData = mustache.render(optionSettings, option);
     $(optionTopData).on('click', function () {
       consoleOptionAction($(this));
     }).appendTo('div.console-options-list');
-    $(optionSettingsData).appendTo('.console-options-table tbody');
   });
 
   $('#appVersion').text(remote.app.getVersion());
@@ -81,14 +75,22 @@ $(document).ready(function () {
     currentWindow.webContents.toggleDevTools();
   });
 
-  $('a.config-options-action').on('click', () => {
+  $('a.show-advanced-settings-action').on('click', () => {
     $('.console-options-modal').addClass('is-active');
     var data = JSON.stringify(consoleOptions, null, 2);
     monacoEditor.initialize('container', 'json', data);
   });
 
-  $('button.modal-close, button.modal-cancel').on('click', () => {
+  $('a.discard-advanced-settings-action').on('click', () => {
     $('.console-options-modal').removeClass('is-active');
+  });
+
+  $('a.save-advanced-settings-action').on('click', () => {
+    console.log('save...');
+  });
+
+  $('a.reset-options-action').on('click', () => {
+    console.log('reset...');
   });
 
   $('button.modal-save').on('click', () => {

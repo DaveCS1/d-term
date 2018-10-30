@@ -21,7 +21,6 @@ self.module = undefined;
 exports.initialize = (containerId, lang, data) => {
   if (!editor) {
     amdRequire(['vs/editor/editor.main'], function () {
-      console.log('creating...');
       editor = monaco.editor.create(document.getElementById(containerId), {
         value: data,
         language: lang,

@@ -137,3 +137,7 @@ footer.quickview-footer {
 .modal-card .subtitle{
   vertical-align: bottom;
 }
+
+.modal-header, .modal-footer {
+  padding: 1.5rem;
+}

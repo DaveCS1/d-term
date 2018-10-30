@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../node_modules/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="../node_modules/bulma-tooltip/dist/css/bulma-tooltip.min.css">
-  <link rel="stylesheet" href="../node_modules/bulma-quickview/dist/css/bulma-quickview.min.css">
   <link rel="stylesheet" href="../node_modules/@mdi/font/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../node_modules/xterm/dist/xterm.css">
   <link rel="stylesheet" href="./main.renderer.css">
@@ -36,7 +35,7 @@
                 <div class="level-item console-options-list">
                 </div>
                 <div class="level-item">
-                  <a data-show="quickview" data-target="settings-panel">
+                  <a class="show-advanced-settings-action">
                     <span class="icon is-medium has-text-grey">
                       <i class="mdi mdi-24px mdi-dots-horizontal" aria-hidden="true"></i>
                     </span>
@@ -79,71 +78,64 @@
 
   </section>
 
-  <div id="settings-panel" class="quickview has-background-black">
-    <header class="quickview-header">
-      <h1 class="title is-1 has-text-white">
-        <span class="icon is-large">
-          <i class="mdi mdi-48px mdi-dots-horizontal" aria-hidden="true"></i>
-        </span>
-      </h1>
-      <span class="delete" data-dismiss="quickview"></span>
-    </header>
-    <div class="quickview-body">
-      <section class="section">
-        <div class="buttons">
-          <a class="button is-small is-fullwidth is-white is-outlined toggle-devtools-action">Toggle DevTools</a>
-          <a class="button is-medium is-fullwidth is-primary is-outlined config-options-action">Advanced Settings</a>
-        </div>
-      </section>
-      <table class="table is-fullwidth has-background-black has-text-white console-options-table">
-        <thead>
-          <th colspan="2"></th>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- MODAL: Advanced console settings -->
   <div class="modal console-options-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
-      <header class="modal-card-head has-background-black">
-        <p class="modal-card-title has-text-white">Advanced settings</p>
-        <button class="delete modal-close is-large has-text-white" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body">
+      <section class="section modal-header">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <div>
+                <h1 class="title has-text-white">Advanced settings</h1>
+                <p class="heading has-text-white">Manage your favorite console options.</p>
+              </div>
+            </div>
+          </div>
+          <div class="level-right">
+            <a class="level-item discard-advanced-settings-action">
+              <span class="icon is-medium has-text-white">
+                <i class="mdi mdi-24px mdi-close" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="modal-card-body has-background-dark">
         <div id="container" style="height:100%;"></div>
       </section>
-      <footer class="modal-card-foot has-background-black has-text-white">
-        <div class="buttons has-text-right">
-          <button class="button modal-cancel is-text has-text-white has-background-black">cancel</button>
-          <button class="button is-primary is-outlined modal-save">Save changes</button>
+      <section class="section modal-footer">
+        <div class="level">
+          <div class="level-left">
+            <a class="level-item reset-options-action tooltip is-tooltip-right" data-tooltip="Reset console options.">
+              <span class="icon has-text-danger">
+                <i class="mdi mdi-restore" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="level-item toggle-devtools-action tooltip is-tooltip-left" data-tooltip="Toggle dev tools.">
+              <span class="icon has-text-info">
+                <i class="mdi mdi-toolbox" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+          <div class="level-right">
+            <div class="buttons level-item">
+              <a class="button discard-advanced-settings-action is-text has-text-white has-background-black">cancel</a>
+              <a class="button is-primary is-outlined save-advanced-settings-action">Save changes</a>
+            </div>
+          </div>
         </div>
-      </footer>
+      </section>
     </div>
   </div>
 
-  <!-- TEMPLATE: Console options menu -->
+  <!-- TEMPLATE: Console options -->
   <script id="consoleOptionsMenutemTpl" type="text/template">
     <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
       <span class="icon is-medium" style="color:{{color}};">
           <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
       </span>
     </a>
-  </script>
-
-  <!-- TEMPLATE: Console options table -->
-  <script id="consoleOptionsTableItemTpl" type="text/template">
-    <tr>
-      <td style="width:45px;">
-          <span class="icon is-medium" style="color:{{color}};">
-            <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
-          </span>
-      </td>
-      <td>{{label}}</td>
-    </tr>
   </script>
 
   <!-- TEMPLATE: Console tab item -->
