@@ -114,3 +114,26 @@ footer.quickview-footer {
 .console-options-modal {
   z-index: 10000;
 }
+
+.console-options-modal .modal-card {
+  width: 950px;
+  height: calc(100vh - 175px);
+  border: 1px solid white;
+}
+
+.console-options-modal .modal-card-body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.modal-background {
+  background-color: black;
+  opacity: .925;
+}
+
+.modal-card .subtitle{
+  vertical-align: bottom;
+}

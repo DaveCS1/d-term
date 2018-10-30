@@ -38,8 +38,4 @@ exports.create = () => {
   });
 }
 
-exports.getInstance = () => {
-  return this.instance;
-}
-
 exports.instance;

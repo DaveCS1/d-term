@@ -1,8 +1,9 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
+const quickViewPanels = require('../node_modules/bulma-quickview/dist/js/bulma-quickview');
 const consolesRepository = require('./consoles/console.repository');
 const consoleProcess = require('./consoles/console.process');
-//const quickView = require('bulma-quickview')();
+const monacoEditor = require('./monaco.editor');
 const mustache = require('mustache');
 
 let processInstances = [];
@@ -60,7 +61,7 @@ consoleTabItemAction = ($this) => {
 // Initialize renderer
 $(document).ready(function () {
 
-  let sidePanels = bulmaQuickview.attach();
+  let sidePanels = quickViewPanels.attach();
   let consoleOptions = consolesRepository.getAll();
 
   consoleOptions.forEach(option => {
@@ -82,9 +83,11 @@ $(document).ready(function () {
 
   $('a.config-options-action').on('click', () => {
     $('.console-options-modal').addClass('is-active');
+    var data = JSON.stringify(consoleOptions, null, 2);
+    monacoEditor.initialize('container', 'json', data);
   });
 
-  $('.console-options-modal a.modal-close').on('click', () => {
+  $('.console-options-modal button.modal-close').on('click', () => {
     $('.console-options-modal').removeClass('is-active');
   });
 

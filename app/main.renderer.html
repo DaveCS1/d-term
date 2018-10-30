@@ -92,7 +92,7 @@
       <section class="section">
         <div class="buttons">
           <a class="button is-small is-fullwidth is-white is-outlined toggle-devtools-action">Toggle DevTools</a>
-          <a class="button is-medium is-fullwidth is-primary is-outlined config-options-action">Configure Options</a>
+          <a class="button is-medium is-fullwidth is-primary is-outlined config-options-action">Advanced Settings</a>
         </div>
       </section>
       <table class="table is-fullwidth has-background-black has-text-white console-options-table">
@@ -105,13 +105,24 @@
     </div>
   </div>
 
-  <!-- MODAL: Config console options -->
+  <!-- MODAL: Advanced console settings -->
   <div class="modal console-options-modal">
     <div class="modal-background"></div>
-    <div class="modal-content">
-
+    <div class="modal-card">
+      <header class="modal-card-head has-background-black">
+        <p class="modal-card-title has-text-white">Advanced settings</p>
+        <button class="delete modal-close is-large has-text-white" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <div id="container" style="height:100%;"></div>
+      </section>
+      <footer class="modal-card-foot has-background-black has-text-white">
+        <div class="buttons has-text-right">
+          <button class="button is-text has-text-white has-background-black">cancel</button>
+          <button class="button is-primary is-outlined">Save changes</button>
+        </div>
+      </footer>
     </div>
-    <a class="modal-close is-large" aria-label="close"></a>
   </div>
 
   <!-- TEMPLATE: Console options menu -->
@@ -151,8 +162,6 @@
   <script id="consoleTerminalTpl" type="text/template">
     <div id="pid{{id}}" class="fullscreen terminal-instance"></div>
   </script>
-
-  <script type="text/javascript" src="../node_modules/bulma-quickview/dist/js/bulma-quickview.min.js"></script>
 
   <script>
     $ = require('jquery');
