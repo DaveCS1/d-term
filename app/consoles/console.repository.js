@@ -43,7 +43,7 @@ exports.getAll = () => {
                 color: '#dd4814'
             });
         }
-        localStorage.setItem(consoleOptionsKey, JSON.stringify(options));
+        save(options);
     }
     return options;
 }
@@ -51,4 +51,10 @@ exports.getAll = () => {
 exports.getById = (optionId) => {
     let options = JSON.parse(localStorage.getItem(consoleOptionsKey)) || [];
     return _.find(options, item => item.id == optionId);
+}
+
+exports.save = (data) => {
+  if (data) {
+    localStorage.setItem(consoleOptionsKey, JSON.stringify(JSON.parse(data)));
+  }
 }

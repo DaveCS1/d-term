@@ -87,8 +87,13 @@ $(document).ready(function () {
     monacoEditor.initialize('container', 'json', data);
   });
 
-  $('.console-options-modal button.modal-close').on('click', () => {
+  $('button.modal-close, button.modal-cancel').on('click', () => {
     $('.console-options-modal').removeClass('is-active');
+  });
+
+  $('button.modal-save').on('click', () => {
+    let data = monacoEditor.getData();
+    consolesRepository.save(data);
   });
 
   $('a.project-source-action').on('click', () => {
