@@ -4,12 +4,16 @@ const amdRequire = amdLoader.require;
 
 let editor;
 
-function uriFromPath(_path) {
+uriFromPath = (_path) => {
   var pathName = path.resolve(_path).replace(/\\/g, '/');
   if (pathName.length > 0 && pathName.charAt(0) !== '/') {
     pathName = '/' + pathName;
   }
   return encodeURI('file://' + pathName);
+}
+
+parseJSONData = (jsonObject) => {
+  return JSON.stringify(jsonObject, null, 2);
 }
 
 amdRequire.config({
@@ -18,7 +22,8 @@ amdRequire.config({
 
 self.module = undefined;
 
-exports.initialize = (containerId, lang, data) => {
+exports.show = (lang, jsonData, containerId) => {
+  var data = parseJSONData(jsonData);
   if (!editor) {
     amdRequire(['vs/editor/editor.main'], function () {
       editor = monaco.editor.create(document.getElementById(containerId), {
@@ -31,9 +36,16 @@ exports.initialize = (containerId, lang, data) => {
         theme: "vs-dark"
       });
     });
+  } else {
+    editor.setValue(data);
   }
 }
 
 exports.getData = () => {
   return editor.getValue();
+}
+
+exports.setData = (jsonData) => {
+  var parsedData = parseJSONData(jsonData);
+  editor.setValue(parsedData);
 }

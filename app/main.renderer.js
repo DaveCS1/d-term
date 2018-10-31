@@ -5,6 +5,7 @@ const consoleProcess = require('./consoles/console.process');
 const monacoEditor = require('./monaco.editor');
 const mustache = require('mustache');
 const logger = require('./logger');
+const toaster = require('bulma-toast');
 
 let processInstances = [];
 
@@ -20,7 +21,6 @@ currentWindow.on('close', () => {
   });
 });
 
-// Create console process
 consoleOptionAction = ($this) => {
   let optionId = $this.data('option-id');
   let optionEntity = consolesRepository.getById(optionId);
@@ -47,7 +47,6 @@ consoleOptionAction = ($this) => {
   }
 };
 
-// Switch console tab items
 consoleTabItemAction = ($this) => {
   let processId = $this.data('pid');
   $('.console-tab-items li').removeClass('is-active');
@@ -56,11 +55,9 @@ consoleTabItemAction = ($this) => {
   $this.addClass('is-active');
 };
 
-// Initialize renderer
-$(document).ready(function () {
-
+loadConsoleOptions = () => {
+  $('div.console-options-list').html('');
   let consoleOptions = consolesRepository.getAll();
-
   consoleOptions.forEach(option => {
     let optionTop = $('#consoleOptionsMenutemTpl').html();
     let optionTopData = mustache.render(optionTop, option);
@@ -68,6 +65,19 @@ $(document).ready(function () {
       consoleOptionAction($(this));
     }).appendTo('div.console-options-list');
   });
+}
+
+openSettingsModal = () => {
+  $('.console-options-modal').addClass('is-active');
+}
+
+closeSettingsModal = () => {
+  $('.console-options-modal').removeClass('is-active');
+}
+
+$(document).ready(function () {
+
+  loadConsoleOptions();
 
   $('#appVersion').text(remote.app.getVersion());
 
@@ -76,26 +86,40 @@ $(document).ready(function () {
   });
 
   $('a.show-advanced-settings-action').on('click', () => {
-    $('.console-options-modal').addClass('is-active');
-    var data = JSON.stringify(consoleOptions, null, 2);
-    monacoEditor.initialize('container', 'json', data);
+    openSettingsModal();
+    let consoleOptions = consolesRepository.getAll();
+    monacoEditor.show('json', consoleOptions, 'editor');
   });
 
   $('a.discard-advanced-settings-action').on('click', () => {
-    $('.console-options-modal').removeClass('is-active');
+    closeSettingsModal();
   });
 
   $('a.save-advanced-settings-action').on('click', () => {
-    console.log('save...');
+    try {
+      let data = JSON.parse(monacoEditor.getData());
+      consolesRepository.save(data);
+      loadConsoleOptions();
+      closeSettingsModal();
+    }
+    catch (e) {
+      if (e.message.indexOf('SyntaxError')){
+        toaster.toast({
+          type: "is-danger",
+          message: "Invalid JSON syntax.",
+          position: 'center',
+          closeOnClick: true,
+          duration: 2000
+        });
+        return;
+      }
+      throw e;
+    }
   });
 
   $('a.reset-options-action').on('click', () => {
-    console.log('reset...');
-  });
-
-  $('button.modal-save').on('click', () => {
-    let data = monacoEditor.getData();
-    consolesRepository.save(data);
+    let consoleOptions = consolesRepository.getDefaultOptions();
+    monacoEditor.setData(consoleOptions);
   });
 
   $('a.project-source-action').on('click', () => {
