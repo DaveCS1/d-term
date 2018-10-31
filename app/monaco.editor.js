@@ -31,7 +31,6 @@ exports.show = (lang, jsonData, containerId) => {
         language: lang,
         lineNumbers: "on",
         roundedSelection: false,
-        scrollBeyondLastLine: false,
         readOnly: false,
         theme: "vs-dark"
       });
