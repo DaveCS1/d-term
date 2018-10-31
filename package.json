@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/akasarto/d-term#readme",
   "devDependencies": {
-    "electron": "^3.0.5",
+    "electron": "^3.0.6",
     "electron-builder": "^20.29.0",
     "electron-rebuild": "^1.8.2"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.1",
+    "@fortawesome/fontawesome-free": "^5.4.2",
     "@mdi/font": "^3.0.39",
     "args-parser": "^1.1.0",
     "bulma": "^0.7.2",

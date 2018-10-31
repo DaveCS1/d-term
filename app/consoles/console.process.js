@@ -37,7 +37,7 @@ module.exports = class ConsoleProcess extends EventEmitter {
     this._element = document.getElementById(elementId);
 
     this._terminal = new term({
-      theme: { background: '#242424' }
+      theme: { background: '#0a0a0a' }
     });
 
     this._terminal.open(this._element);
