@@ -27,10 +27,6 @@
           </div>
         </div>
         <div class="navbar-menu">
-          <div class="navbar-start">
-            <div class="navbar-item">
-            </div>
-          </div>
           <div class="navbar-end">
             <div class="navbar-item">
               <nav class="level is-mobile has-text-centered">
@@ -48,10 +44,6 @@
           </div>
         </div>
       </nav>
-      <div class="tabs is-mobile has-background-dark console-tab-items-wrapper">
-        <ul class="console-tab-items">
-        </ul>
-      </div>
     </div>
 
     <!-- Terminal area -->
@@ -80,8 +72,8 @@
 
   </section>
 
-  <!-- MODAL: Advanced console settings -->
-  <div class="modal console-options-modal">
+  <!-- MODAL: Advanced settings -->
+  <div class="modal advanced-settings-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
       <section class="section modal-header">
@@ -138,23 +130,6 @@
           <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
       </span>
     </a>
-  </script>
-
-  <!-- TEMPLATE: Console tab item -->
-  <script id="consoleTabItemTpl" type="text/template">
-    <li data-pid="{{id}}" class="is-active">
-      <a>
-        <span class="icon is-small" style="color:{{color}};">
-          <i class="mdi {{icon}}"></i>
-        </span>
-        <span>{{label}}</span>
-      </a>
-    </li>
-  </script>
-
-  <!-- TEMPLATE: Console terminal container -->
-  <script id="consoleTerminalTpl" type="text/template">
-    <div id="pid{{id}}" class="fullscreen terminal-instance"></div>
   </script>
 
   <script>

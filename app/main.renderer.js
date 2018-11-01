@@ -6,7 +6,7 @@ const monacoEditor = require('./monaco.editor');
 const mustache = require('mustache');
 const logger = require('./logger');
 const toaster = require('bulma-toast');
-const view = require('./main.view')
+const terminals = require('./terminals')
 
 let processInstances = [];
 
@@ -69,11 +69,11 @@ loadConsoleOptions = () => {
 }
 
 openSettingsModal = () => {
-  $('.console-options-modal').addClass('is-active');
+  $('.advanced-settings-modal').addClass('is-active');
 }
 
 closeSettingsModal = () => {
-  $('.console-options-modal').removeClass('is-active');
+  $('.advanced-settings-modal').removeClass('is-active');
 }
 
 $(document).ready(function () {
@@ -127,6 +127,6 @@ $(document).ready(function () {
     remote.shell.openExternal('https://github.com/akasarto/d-term');
   });
 
-  view.initialize();
+  terminals.initialize();
 
 });

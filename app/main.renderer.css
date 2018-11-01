@@ -1,3 +1,5 @@
+/* GLOBALS */
+
 *,
 *:before,
 *:after {
@@ -7,10 +9,6 @@
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
-}
-
-html, body {
-  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -25,6 +23,8 @@ html, body {
     background: white;
 }
 
+/* TOP NAV */
+
 nav.main-nav {
   border-bottom: 1px solid white;
 }
@@ -34,94 +34,23 @@ div.hero-foot {
   padding: 2.5px 15px 1.5px 5px;
 }
 
-.console-tab-items {
-  margin: 15px;
-}
-
 .console-option-action {
   margin-left: 15px;
 }
 
-.console-option-settings {
-  margin-left: 10px;
-}
+/* ADVANCED SETTINGS MODAL */
 
-.fullscreen {
-  position: fixed;
-  top: 135px;
-  bottom: 45px;
-  left: 0;
-  right: 0;
-  width: auto;
-  height: auto;
-  z-index: 255;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 7.5px;
-  margin-right: 7.5px;
-}
-
-/* .console-terminals-list div {
-  z-index: 0;
-}
-
-.console-terminals-list div.is-active {
-  z-index: 255;
-} */
-
-.tabs .console-tab-items li {
-  opacity: .3;
-}
-
-.tabs .console-tab-items li.is-active {
-  opacity: 1;
-}
-
-.tabs .console-tab-items li a {
-  border-bottom: none;
-}
-
-.console-tab-items-wrapper {
-  height: 70px;
-}
-
-.quickview {
-  z-index: 500;
-  border-left: 1px solid white;
-}
-
-.quickview-header {
-  height: 53px;
-}
-
-.quickview-header {
-  border-bottom: none;
-}
-
-footer.quickview-footer {
-  min-height: 37px;
-  border-top: none;
-}
-
-.console-options-table td, .table th {
-  vertical-align: middle;
-}
-
-.config-options-action {
-  margin-top: 25px;
-}
-
-.console-options-modal {
+.advanced-settings-modal {
   z-index: 10000;
 }
 
-.console-options-modal .modal-card {
+.advanced-settings-modal .modal-card {
   width: 950px;
   height: calc(100vh - 175px);
   border: 1px solid white;
 }
 
-.console-options-modal .modal-card-body {
+.advanced-settings-modal .modal-card-body {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -132,10 +61,6 @@ footer.quickview-footer {
 .modal-background {
   background-color: black;
   opacity: .7;
-}
-
-.modal-card .subtitle{
-  vertical-align: bottom;
 }
 
 .modal-header, .modal-footer {
