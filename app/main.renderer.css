@@ -61,13 +61,13 @@ div.hero-foot {
   margin-right: 7.5px;
 }
 
-.console-terminals-list div {
+/* .console-terminals-list div {
   z-index: 0;
 }
 
 .console-terminals-list div.is-active {
   z-index: 255;
-}
+} */
 
 .tabs .console-tab-items li {
   opacity: .3;

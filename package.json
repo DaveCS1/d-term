@@ -40,6 +40,7 @@
     "bulma-toast": "^1.4.0",
     "bulma-tooltip": "^2.0.2",
     "electron-window-state": "^5.0.2",
+    "golden-layout": "^1.5.9",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "monaco-editor": "^0.14.3",

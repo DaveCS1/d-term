@@ -33,23 +33,18 @@ module.exports = class ConsoleProcess extends EventEmitter {
     return this._option.color;
   }
 
-  initialize(elementId) {
-    this._element = document.getElementById(elementId);
-
+  initialize(containerElement) {
+    this._element = containerElement;
     this._terminal = new term({
       theme: { background: '#0a0a0a' }
     });
-
     this._terminal.open(this._element);
-
     this._terminal.on('data', (data) => {
       this._pty.write(data);
     });
-
     this._pty.on('data', (data) => {
       this._terminal.write(data);
     });
-
     this._pty.on('exit', (data) => {
       this.emit('process-exited', this.id);
       this._pty = null;
@@ -57,11 +52,10 @@ module.exports = class ConsoleProcess extends EventEmitter {
       this._element = null;
       this._terminal = null;
     });
-
-    this.fixSize();
+    this.setSize();
   }
 
-  fixSize() {
+  setSize() {
     if (!this._terminal) {
       return;
     }
@@ -73,6 +67,7 @@ module.exports = class ConsoleProcess extends EventEmitter {
   }
 
   terminate() {
+    console.log('Terminating', this.id);
     if (!this._pty) {
       return;
     }

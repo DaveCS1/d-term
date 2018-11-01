@@ -6,6 +6,7 @@ const monacoEditor = require('./monaco.editor');
 const mustache = require('mustache');
 const logger = require('./logger');
 const toaster = require('bulma-toast');
+const view = require('./main.view')
 
 let processInstances = [];
 
@@ -62,7 +63,7 @@ loadConsoleOptions = () => {
     let optionTop = $('#consoleOptionsMenutemTpl').html();
     let optionTopData = mustache.render(optionTop, option);
     $(optionTopData).on('click', function () {
-      consoleOptionAction($(this));
+      //consoleOptionAction($(this));
     }).appendTo('div.console-options-list');
   });
 }
@@ -125,5 +126,7 @@ $(document).ready(function () {
   $('a.project-source-action').on('click', () => {
     remote.shell.openExternal('https://github.com/akasarto/d-term');
   });
+
+  view.initialize();
 
 });
