@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/akasarto/d-term#readme",
   "devDependencies": {
-    "electron": "^3.0.6",
+    "electron": "^3.0.7",
     "electron-builder": "^20.29.0",
     "electron-rebuild": "^1.8.2"
   },
