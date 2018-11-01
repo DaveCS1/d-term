@@ -2,7 +2,7 @@ const { app, ipcMain } = require('electron');
 const mainWindow = require('./app/main.window');
 
 ipcMain.on('info', (e, data) => {
-  console.log(e.sender, data);
+  console.log(data);
 });
 
 process.on('uncaughtException', function (e) {

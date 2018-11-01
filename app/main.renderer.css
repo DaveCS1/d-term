@@ -11,6 +11,10 @@
   border-radius: 0 !important;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -58,10 +62,10 @@ div.hero-foot {
   overflow: hidden;
 }
 
-.modal-background {
+/* .modal-background {
   background-color: black;
   opacity: .7;
-}
+} */
 
 .modal-header, .modal-footer {
   padding: 1.5rem;

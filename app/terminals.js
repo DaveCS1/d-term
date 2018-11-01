@@ -1,6 +1,9 @@
 const goldenLayout = require('golden-layout');
-const consolesRepository = require('./consoles/console.repository');
-const consoleProcess = require('./consoles/console.process');
+const consolesRepository = require('./console.repository');
+const consoleProcess = require('./console.process');
+const { ipcRenderer } = require('electron');
+
+const processInstances = [];
 
 const config = {
   settings: {
@@ -37,6 +40,11 @@ layout.registerComponent('terminal', function (container, componentState) {
   let optionEntity = consolesRepository.getById(optionId);
   let processInstance = new consoleProcess(optionEntity);
 
+  processInstances.push(processInstance);
+
+  processInstance.on('process-exited', (pid) => {
+  });
+
   container.on('open', function() {
     processInstance.initialize(container.getElement()[0]);
   });
@@ -52,4 +60,19 @@ layout.registerComponent('terminal', function (container, componentState) {
 
 exports.initialize = () => {
   layout.init();
+}
+
+exports.updateSize = () => {
+  layout.updateSize();
+}
+
+exports.create = (consoleOption) => {
+  console.log('Create', consoleOption);
+}
+
+exports.terminateAll = () => {
+  processInstances.forEach(isntance => {
+    isntance.terminate();
+  });
+  ipcRenderer.send('info', 'terminating all');
 }

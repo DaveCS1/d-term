@@ -46,7 +46,7 @@
       </nav>
     </div>
 
-    <!-- Terminal area -->
+    <!-- Terminals area -->
     <div class="hero-body has-background-black" id="terminals">
     </div>
 
@@ -71,6 +71,15 @@
     </div>
 
   </section>
+
+  <!-- TEMPLATE: Console options -->
+  <script id="consoleOptionsMenutemTpl" type="text/template">
+    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
+      <span class="icon is-medium" style="color:{{color}};">
+          <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
+      </span>
+    </a>
+  </script>
 
   <!-- MODAL: Advanced settings -->
   <div class="modal advanced-settings-modal">
@@ -122,15 +131,6 @@
       </section>
     </div>
   </div>
-
-  <!-- TEMPLATE: Console options -->
-  <script id="consoleOptionsMenutemTpl" type="text/template">
-    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
-      <span class="icon is-medium" style="color:{{color}};">
-          <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
-      </span>
-    </a>
-  </script>
 
   <script>
     $ = require('jquery');
