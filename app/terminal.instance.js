@@ -47,6 +47,7 @@ module.exports = class Terminal extends EventEmitter {
       }
       this._nodePty.write(data);
     });
+    this.resize();
   }
 
   resize() {
@@ -57,7 +58,7 @@ module.exports = class Terminal extends EventEmitter {
     if (this._nodePty) {
       this._nodePty.resize(
         this._innerTerminal.cols,
-        this._term_innerTerminalinal.rows
+        this._innerTerminal.rows
       );
     }
   }
