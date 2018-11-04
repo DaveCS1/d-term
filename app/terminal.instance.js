@@ -7,6 +7,7 @@ module.exports = class Terminal extends EventEmitter {
 
   constructor(descriptor) {
     super();
+    this._exited = false;
     this._descriptor = descriptor;
     this._wrapperElement = document.getElementById(this._descriptor.id);
     this.createNodePty();
@@ -22,6 +23,10 @@ module.exports = class Terminal extends EventEmitter {
       return 0;
     }
     return this._nodePty.pid;
+  }
+
+  get exited() {
+    return this._exited;
   }
 
   get info() {
@@ -48,6 +53,7 @@ module.exports = class Terminal extends EventEmitter {
       this.emit('node-pty-ready', this.info);
     });
     this._nodePty.on('exit', () => {
+      this._exited = true;
       this.emit('node-pty-exited', this.info);
       this._innerTerminal = null;
       this._nodePty = null;
@@ -68,11 +74,13 @@ module.exports = class Terminal extends EventEmitter {
   }
 
   resize() {
-    console.log(proposeGeometry(this._innerTerminal));
-    if (this._innerTerminal && this._innerTerminal.element) {
+    if (this.exited) {
+      return;
+    }
+    if (this._innerTerminal) {
       fit(this._innerTerminal);
     }
-    if (this._nodePty && this._nodePty.pid > 0) {
+    if (this._nodePty) {
       this._nodePty.resize(
         this._innerTerminal.cols,
         this._innerTerminal.rows

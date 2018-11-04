@@ -19,8 +19,12 @@
 
   <section class="hero is-fullheight is-black">
 
-    <!-- top header -->
-    <div class="hero-head">
+    <!-- Terminals area -->
+    <div class="hero-body has-background-black" id="terminals">
+    </div>
+
+    <!-- Footer content -->
+    <div class="hero-foot">
       <nav class="navbar main-nav">
         <div class="navbar-brand">
           <div class="navbar-item">
@@ -45,36 +49,42 @@
           </div>
         </div>
       </nav>
-    </div>
-
-    <!-- Terminals area -->
-    <div class="hero-body has-background-black" id="terminals">
-    </div>
-
-    <!-- Footer content -->
-    <div class="hero-foot">
-      <nav class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <a class="project-source-action tooltip is-tooltip-right is-tooltip-primary" data-tooltip="Project source code">
-              <span class="icon is-medium has-text-white">
-                <i class="mdi mdi-24px mdi-github-circle" aria-hidden="true"></i>
-              </span>
-            </a>
+      <div class="container-fluid">
+        <a class="project-source-action tooltip is-tooltip-right is-tooltip-primary is-pulled-left" data-tooltip="Project source code">
+          <span class="icon is-medium has-text-white">
+            <i class="mdi mdi-24px mdi-github-circle" aria-hidden="true"></i>
+          </span>
+        </a>
+        <div class="is-pulled-right">
+          <small>Version</small>&nbsp;<strong id="appVersion"></strong>
+        </div>
+      </div>
+      <!--
+      <footer class="footer has-background-black has-text-white">
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <a class="project-source-action tooltip is-tooltip-right is-tooltip-primary" data-tooltip="Project source code">
+                <span class="icon is-medium has-text-white">
+                  <i class="mdi mdi-24px mdi-github-circle" aria-hidden="true"></i>
+                </span>
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="level-right">
-          <p class="level-item">
-            <small>Version</small>&nbsp;<strong id="appVersion"></strong>
-          </p>
-        </div>
-      </nav>
+          <div class="level-right">
+            <p class="level-item">
+              <small>Version</small>&nbsp;<strong id="appVersion"></strong>
+            </p>
+          </div>
+        </nav>
+      </footer>
+      -->
     </div>
 
   </section>
 
   <!-- TEMPLATE: Console options -->
-  <script id="consoleOptionsMenutemTpl" type="text/template">
+  <script id="consoleOptionsTemplate" type="text/template">
     <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
       <span class="icon is-medium" style="color:{{color}};">
           <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>

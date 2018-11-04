@@ -62,15 +62,13 @@ layout.registerComponent('terminal', function (container, descriptor) {
     let instance = new terminal(container._config);
     terminals.push(instance);
     instance.on('node-pty-ready', (info) => {
-      console.log('ready: ', info);
+      $('.standby', container.getElement()).remove();
     });
     instance.on('node-pty-exited', (info) => {
-      console.log('terminals', terminals.length);
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       let index = terminals.indexOf(terminal);
       terminals.splice(index, 1);
-      console.log('exited: ', info);
-      console.log('terminals', terminals.length);
+      container.close();
     });
     container.on('resize', () => {
       instance.resize();

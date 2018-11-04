@@ -11,9 +11,9 @@
   border-radius: 0 !important;
 }
 
-html, body {
+/* html, body {
   overflow: hidden;
-}
+} */
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -74,10 +74,10 @@ nav.main-nav {
   border-bottom: 1px solid white;
 }
 
-div.hero-foot {
+/* div.hero-foot {
   border-top: 1px solid white;
   padding: 2.5px 15px 1.5px 5px;
-}
+} */
 
 .console-option-action {
   margin-left: 15px;
