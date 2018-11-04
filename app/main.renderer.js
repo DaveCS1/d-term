@@ -12,6 +12,14 @@ currentWindow.on('close', () => {
   terminalManager.terminateAll();
 });
 
+currentWindow.webContents.on('devtools-opened', () => {
+  terminalManager.updateSize();
+});
+
+currentWindow.webContents.on('devtools-closed', () => {
+  terminalManager.updateSize();
+});
+
 consoleOptions.onOptionClicked((option) => {
   terminalManager.create(option);
 });

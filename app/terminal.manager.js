@@ -16,12 +16,18 @@ const config = {
   content: [{
     type: 'row',
     content: [{
-      id: newId(),
       type: 'component',
+      title: 'Command Prompt',
       componentName: 'terminal',
       componentState: {
-        console: {},
-        terminal: {
+        consoleOption: {
+          id: 1,
+          cwd: 'cmd.exe'
+        },
+        nodePty: {
+          name: 'xterm-color'
+        },
+        xterm: {
           theme: { background: '#0a0a0a' }
         }
       }
@@ -33,10 +39,14 @@ let layout = new GoldenLayout(config, document.getElementById('terminals'));
 
 layout.registerComponent('terminal', function (container, descriptor) {
 
-  let id = newId();
+  console.log('descriptor', descriptor);
+
+  container._config.id = newId();
+
+  container.getElement().css('background-color', descriptor.xterm.theme.background);
 
   let wrapper = $('<div/>', {
-    id,
+    id: container._config.id,
     class: 'terminal-wrapper'
   }).appendTo(container.getElement());
 
@@ -44,32 +54,22 @@ layout.registerComponent('terminal', function (container, descriptor) {
     class: 'standby'
   }).appendTo(container.getElement());
 
-  // container.getElement().attr(
-  //   'id',
-  //   newId
-  // );
-
-  // container.getElement().html(`
-  //   <div class="icon is-large has-text-white component-loader">
-  //     <i class="fas fa-lg fa-spinner fa-pulse"></i>
-  //   </div>
-  // `);
-
-  // container.getElement().html(`
-  //   <div style="position:relative;top:0;left:0;width:100%;height:100%;background:red;">
-  //   </div>
-  // `);
-
-
-
-  // let element = container.getElement();
-  // let instance = new terminal(element[0], descriptor);
-  // instances.push(instance);
-
-  // container.on('resize', function() {
-  // });
+  setTimeout(() => {
+    let instance = new terminal(container._config);
+    terminals.push(instance);
+    container.on('resize', () => {
+      instance.resize();
+    });
+  }, 1000);
 
 });
+
+layout.on('stateChanged', function () {
+  console.log('stateChanged', terminals.length);
+  terminals.forEach(terminal => {
+    terminal.resize();
+  });
+})
 
 exports.initialize = () => {
   layout.init();
@@ -78,16 +78,18 @@ exports.initialize = () => {
     let consoleId = $this.data('option-id');
     let consoleOption = consolesRepository.getById(consoleId);
     layout.createDragSource($this, {
-      id: newId(),
       type: 'component',
+      title: consoleOption.label,
       componentName: 'terminal',
       componentState: {
-        console: consoleOption,
-        terminal: {
+        consoleOption,
+        nodePty: {
+          name: 'xterm-color'
+        },
+        xterm: {
           theme: { background: '#0a0a0a' }
         }
-      },
-      title: consoleOption.label
+      }
     });
   });
 }
@@ -98,12 +100,15 @@ exports.updateSize = () => {
 
 exports.create = (consoleOption) => {
   var newItemConfig = {
-    id: newId(),
     type: 'component',
+    title: consoleOption.label,
     componentName: 'terminal',
     componentState: {
-      console: consoleOption,
-      terminal: {
+      consoleOption,
+      nodePty: {
+        name: 'xterm-color'
+      },
+      xterm: {
         theme: { background: '#0a0a0a' }
       }
     }
@@ -115,5 +120,4 @@ exports.terminateAll = () => {
   terminals.forEach(isntance => {
     isntance.terminate();
   });
-  ipcRenderer.send('info', 'terminating all');
 }
