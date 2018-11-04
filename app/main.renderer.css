@@ -27,6 +27,47 @@ html, body {
     background: white;
 }
 
+/* TERMINALS (GOLDEN LAYOUT) */
+
+.standby {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+
+.standby:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50% !important;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: standby 1.2s linear infinite;
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+}
+
+@keyframes standby {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.terminal-wrapper {
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:1px solid red;
+  position:relative;
+}
+
 /* TOP NAV */
 
 nav.main-nav {
@@ -61,11 +102,6 @@ div.hero-foot {
   padding: 0;
   overflow: hidden;
 }
-
-/* .modal-background {
-  background-color: black;
-  opacity: .7;
-} */
 
 .modal-header, .modal-footer {
   padding: 1.5rem;

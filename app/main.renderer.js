@@ -1,21 +1,19 @@
 const { remote } = require('electron');
 const currentWindow = remote.getCurrentWindow();
+const terminalManager = require('./terminal.manager');
 const consoleOptions = require('./console.options');
 const settingsModal = require('./settings.modal');
-const terminals = require('./terminals');
 
 currentWindow.on('resize', () => {
-  terminals.updateSize();
+  terminalManager.updateSize();
 });
 
 currentWindow.on('close', () => {
-  terminals.terminateAll();
+  terminalManager.terminateAll();
 });
 
-consoleOptions.loadAll();
-
 consoleOptions.onOptionClicked((option) => {
-  terminals.create(option);
+  terminalManager.create(option);
 });
 
 $('#appVersion').text(remote.app.getVersion());
@@ -32,4 +30,5 @@ settingsModal.onOptionsUpdated(newOptions => {
   consoleOptions.loadAll();
 });
 
-terminals.initialize();
+consoleOptions.loadAll();
+terminalManager.initialize();
