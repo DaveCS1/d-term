@@ -25,10 +25,14 @@ const config = {
           cwd: 'cmd.exe'
         },
         nodePty: {
-          name: 'xterm-color'
+          name: 'xterm-color',
+          cols: 80,
+          rows: 30
         },
         xterm: {
-          theme: { background: '#0a0a0a' }
+          theme: { background: '#0a0a0a' },
+          cols: 80,
+          rows: 30
         }
       }
     }]
@@ -57,6 +61,9 @@ layout.registerComponent('terminal', function (container, descriptor) {
   setTimeout(() => {
     let instance = new terminal(container._config);
     terminals.push(instance);
+    instance.on('node-pty-exited', (pid) => {
+      console.log(`exited pid: ${pid}`);
+    });
     container.on('resize', () => {
       instance.resize();
     });
@@ -65,7 +72,6 @@ layout.registerComponent('terminal', function (container, descriptor) {
 });
 
 layout.on('stateChanged', function () {
-  console.log('stateChanged', terminals.length);
   terminals.forEach(terminal => {
     terminal.resize();
   });

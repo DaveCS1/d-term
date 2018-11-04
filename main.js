@@ -1,7 +1,7 @@
 const { app, ipcMain } = require('electron');
 const mainWindow = require('./app/main.window');
 
-ipcMain.on('info', (e, data) => {
+ipcMain.on('info', (source, data) => {
   console.log(data);
 });
 
