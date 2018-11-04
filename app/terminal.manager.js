@@ -61,8 +61,16 @@ layout.registerComponent('terminal', function (container, descriptor) {
   setTimeout(() => {
     let instance = new terminal(container._config);
     terminals.push(instance);
-    instance.on('node-pty-exited', (pid) => {
-      console.log(`exited pid: ${pid}`);
+    instance.on('node-pty-ready', (info) => {
+      console.log('ready: ', info);
+    });
+    instance.on('node-pty-exited', (info) => {
+      console.log('terminals', terminals.length);
+      let terminal = _.find(terminals, terminal => terminal.id == info.id);
+      let index = terminals.indexOf(terminal);
+      terminals.splice(index, 1);
+      console.log('exited: ', info);
+      console.log('terminals', terminals.length);
     });
     container.on('resize', () => {
       instance.resize();
@@ -71,10 +79,15 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
 });
 
-layout.on('stateChanged', function () {
+function resizeAllTerminals() {
+  let instances = _.filter(terminals, terminal => terminal.pid > 0);
   terminals.forEach(terminal => {
     terminal.resize();
   });
+}
+
+layout.on('stateChanged', function () {
+  resizeAllTerminals();
 })
 
 exports.initialize = () => {
