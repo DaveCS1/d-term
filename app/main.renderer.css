@@ -11,10 +11,6 @@
   border-radius: 0 !important;
 }
 
-/* html, body {
-  overflow: hidden;
-} */
-
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -68,19 +64,31 @@
   position:relative;
 }
 
-/* TOP NAV */
+/* FOOTER & NAV */
 
 nav.main-nav {
+  left: 0;
+  bottom: 35px;
+  position: absolute;
+  border-top: 1px solid white;
   border-bottom: 1px solid white;
+  width: 100%;
 }
 
-/* div.hero-foot {
-  border-top: 1px solid white;
-  padding: 2.5px 15px 1.5px 5px;
-} */
+.footer-info {
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  z-index: 75;
+  width: 100%;
+}
 
 .console-option-action {
   margin-left: 15px;
+}
+
+.version-info {
+  margin-right: 7.5px;
 }
 
 /* ADVANCED SETTINGS MODAL */

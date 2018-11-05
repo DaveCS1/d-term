@@ -47,7 +47,10 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
   container._config.id = newId();
 
-  container.getElement().css('background-color', descriptor.xterm.theme.background);
+  container.getElement().css({
+    'background-color': descriptor.xterm.theme.background,
+    'border': '1px solid red'
+  });
 
   let wrapper = $('<div/>', {
     id: container._config.id,
@@ -134,7 +137,7 @@ exports.create = (consoleOption) => {
 }
 
 exports.terminateAll = () => {
-  terminals.forEach(isntance => {
-    isntance.terminate();
+  terminals.forEach(instance => {
+    instance.terminate();
   });
 }
