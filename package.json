@@ -34,6 +34,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.2",
     "@mdi/font": "^3.0.39",
+    "ajv": "^6.5.5",
+    "ajv-keywords": "^3.2.0",
     "args-parser": "^1.1.0",
     "bulma": "^0.7.2",
     "bulma-slider": "^2.0.0",

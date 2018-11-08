@@ -45,27 +45,28 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
   console.log('descriptor', descriptor);
 
+  let element = container.getElement();
+
   container._config.id = newId();
 
-  container.getElement().css({
-    'background-color': descriptor.xterm.theme.background,
-    'border': '1px solid red'
+  element.css({
+    'background-color': descriptor.xterm.theme.background
   });
 
   let wrapper = $('<div/>', {
     id: container._config.id,
     class: 'terminal-wrapper'
-  }).appendTo(container.getElement());
+  }).appendTo(element);
 
   let loader = $('<div/>', {
     class: 'standby'
-  }).appendTo(container.getElement());
+  }).appendTo(element);
 
   setTimeout(() => {
     let instance = new terminal(container._config);
     terminals.push(instance);
     instance.on('node-pty-ready', (info) => {
-      $('.standby', container.getElement()).remove();
+      loader.remove();
     });
     instance.on('node-pty-exited', (info) => {
       let terminal = _.find(terminals, terminal => terminal.id == info.id);

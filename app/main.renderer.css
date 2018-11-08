@@ -60,8 +60,9 @@
   left:0;
   width:100%;
   height:100%;
-  border:1px solid red;
+  padding: 5px;
   position:relative;
+  border:1px solid #222222;
 }
 
 /* FOOTER & NAV */
@@ -72,15 +73,29 @@ nav.main-nav {
   position: absolute;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
+  transition: opacity .3s ease-out;
+  -webkit-transition: opacity .3s ease-out;
+  opacity: .15;
   width: 100%;
 }
 
+nav.main-nav:hover {
+  opacity: 1;
+}
+
 .footer-info {
+  width: 100%;
+  opacity: .15;
+  transition: opacity .3s ease-out;
+  -webkit-transition: opacity .3s ease-out;
   position: absolute;
-  left: 0;
   bottom: -22px;
   z-index: 75;
-  width: 100%;
+  left: 0;
+}
+
+.footer-info:hover {
+  opacity: 1;
 }
 
 .console-option-action {
