@@ -1,7 +1,7 @@
 const GoldenLayout = require('golden-layout');
+const { remote, ipcRenderer } = require('electron');
 const consolesRepository = require('./console.repository');
 const terminal = require('./terminal.instance');
-const { ipcRenderer } = require('electron');
 const newId = require('uuid/v1');
 const _ = require('lodash');
 

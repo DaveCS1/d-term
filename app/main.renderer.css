@@ -67,20 +67,23 @@
 
 /* FOOTER & NAV */
 
-nav.main-nav {
-  left: 0;
-  bottom: 35px;
+nav.floating-panel {
   position: absolute;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+  border: 1px solid white;
   transition: opacity .3s ease-out;
   -webkit-transition: opacity .3s ease-out;
-  opacity: .15;
-  width: 100%;
+  /* box-shadow: 0px 0px 150px 5px #cecece; */
+  min-width: 375px;
+  opacity: .25;
+  height: 52px;
 }
 
-nav.main-nav:hover {
+nav.floating-panel:hover {
   opacity: 1;
+}
+
+nav .floating-panel-handle {
+  cursor: move;
 }
 
 .footer-info {

@@ -17,8 +17,8 @@
 
 <body>
 
-  <nav class="navbar main-nav has-background-black has-text-white">
-    <div class="navbar-brand">
+  <nav id="floating-panel" class="navbar floating-panel has-background-black has-text-white">
+    <div id="floating-panel-handle" class="navbar-brand floating-panel-handle">
       <div class="navbar-item">
         <span class="has-text-grey-dark is-uppercase">Console options</span>
       </div>
@@ -42,6 +42,7 @@
     </div>
   </nav>
 
+  <!--
   <nav class="level footer-info">
     <div class="level-left">
       <div class="level-item">
@@ -58,6 +59,7 @@
       </p>
     </div>
   </nav>
+  -->
 
   <!-- TEMPLATE: Console options -->
   <script id="consoleOptionsTemplate" type="text/template">
@@ -120,7 +122,7 @@
   </div>
 
   <script>
-    $ = require('jquery');
+    $ = jQuery = require('jquery');
     require('./main.renderer.js');
   </script>
 

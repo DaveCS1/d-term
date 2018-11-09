@@ -3,6 +3,7 @@ const currentWindow = remote.getCurrentWindow();
 const terminalManager = require('./terminal.manager');
 const consoleOptions = require('./console.options');
 const settingsModal = require('./settings.modal');
+const draggable = require('./draggable');
 
 currentWindow.on('resize', () => {
   terminalManager.updateSize();
@@ -40,3 +41,5 @@ settingsModal.onOptionsUpdated(newOptions => {
 
 consoleOptions.loadAll();
 terminalManager.initialize();
+
+draggable.drag();
