@@ -65,7 +65,7 @@ module.exports = class Terminal extends EventEmitter {
   }
 
   createXTerm() {
-    let configs = this._descriptor.componentState.terminal;
+    let configs = this._descriptor.componentState.xterm;
     this._innerTerminal = new xterm.Terminal(configs);
     this._innerTerminal.open(this._wrapperElement);
     this._innerTerminal.on('data', (data) => {

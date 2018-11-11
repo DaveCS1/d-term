@@ -82,6 +82,9 @@ function getConsoleOptionConfig(consoleOption) {
         name: 'xterm-color'
       },
       xterm: {
+        cursorBlink: true,
+        cursorStyle: 'underline',
+        rightClickSelectsWord: true,
         theme: { background: '#0a0a0a' }
       }
     }
