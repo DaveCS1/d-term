@@ -85,8 +85,27 @@ function getConsoleOptionConfig(consoleOption) {
   return newItemConfig;
 }
 
-function createInitial() {
+function createTerminalInstance(consoleOption) {
+  var newItemConfig = getConsoleOptionConfig(consoleOption);
+  if (layout.root.contentItems && layout.root.contentItems.length) {
+    layout.root.contentItems[0].addChild(newItemConfig);
+    return;
+  }
+  layout.root.addChild(newItemConfig);
+}
 
+function getPrimaryOption() {
+  let options = repository.getConsoleOptions();
+  let primary = _.filter(options, option => option.primary);
+  if (primary && primary.length) {
+    return primary[0];
+  }
+  return options[0];
+}
+
+function createPrimaryInstance() {
+  let option = getPrimaryOption();
+  createTerminalInstance(option);
 }
 
 function setDraggableOptions() {
@@ -99,12 +118,7 @@ function setDraggableOptions() {
 }
 
 exports.create = (consoleOption) => {
-  var newItemConfig = getConsoleOptionConfig(consoleOption);
-  if (layout.root.contentItems && layout.root.contentItems.length) {
-    layout.root.contentItems[0].addChild(newItemConfig);
-    return;
-  }
-  layout.root.addChild(newItemConfig);
+  createTerminalInstance(consoleOption);
 }
 
 exports.terminateAll = () => {
@@ -119,6 +133,6 @@ exports.updateSize = () => {
 
 exports.initialize = () => {
   layout.init();
-  createInitial();
+  createPrimaryInstance();
   setDraggableOptions();
 }

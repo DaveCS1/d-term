@@ -69,13 +69,11 @@ html, body {
   border:1px solid #222222;
 }
 
-/* FOOTER & NAV */
+/* FLOATING PANEL */
 
 nav.floating-panel {
   position: absolute;
   border: 1px solid white;
-  min-width: 375px;
-  height: 52px;
 }
 
 nav.floating-panel:before {

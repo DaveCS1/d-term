@@ -29,7 +29,7 @@ floatingPanel.onSettingsOptionClicked(() => {
 });
 
 settingsModal.onOptionsUpdated(newOptions => {
-  consoleOptions.loadAll();
+  floatingPanel.refresh();
 });
 
 settingsModal.initialize();

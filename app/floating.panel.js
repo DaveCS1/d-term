@@ -77,3 +77,8 @@ exports.onConsoleOptionClicked = (callback) => {
 exports.onSettingsOptionClicked = (callback) => {
   eventEmitter.on('settings-option-clicked', callback);
 };
+
+exports.refresh = () => {
+  loadConsoleOptions();
+  setInfo();
+}

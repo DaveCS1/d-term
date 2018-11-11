@@ -11,7 +11,7 @@ exports.getDefaultOptions = function() {
       icon: 'mdi-console',
       label: 'Command Prompt',
       color: '#eeeeee',
-      primary: false,
+      primary: true,
       order: 1
     });
     options.push({
@@ -36,7 +36,7 @@ exports.getDefaultOptions = function() {
     });
     options.push({
       id: 4,
-      cwd: 'bash.exe',
+      cwd: process.env['SHELL'],
       args: [],
       icon: 'mdi-ubuntu',
       label: 'WSL Bash (Ubuntu)',
