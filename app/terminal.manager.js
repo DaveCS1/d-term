@@ -18,10 +18,6 @@ const terminals = [];
 
 let layout = new GoldenLayout(config, document.getElementById('terminals'));
 
-layout.on('stateChanged', function () {
-  resizeAllTerminals();
-})
-
 layout.registerComponent('terminal', function (container, descriptor) {
 
   let element = container.getElement();
@@ -44,9 +40,11 @@ layout.registerComponent('terminal', function (container, descriptor) {
     let instance = new terminal(container._config);
     terminals.push(instance);
     instance.on('node-pty-ready', (info) => {
+      ipcRenderer.send('info', { event: 'node-pty-ready', info });
       loader.remove();
     });
     instance.on('node-pty-exited', (info) => {
+      ipcRenderer.send('info', { event: 'node-pty-exited', info });
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       let index = terminals.indexOf(terminal);
       terminals.splice(index, 1);
@@ -59,13 +57,17 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
 });
 
+layout.on('stateChanged', function () {
+  resizeAllTerminals();
+});
+
 function resizeAllTerminals() {
   terminals.forEach(terminal => {
     terminal.resize();
   });
 }
 
-exports.create = (consoleOption) => {
+function getConsoleOptionConfig(consoleOption) {
   var newItemConfig = {
     type: 'component',
     title: consoleOption.label,
@@ -80,7 +82,29 @@ exports.create = (consoleOption) => {
       }
     }
   };
-  layout.root.contentItems[0].addChild(newItemConfig);
+  return newItemConfig;
+}
+
+function createInitial() {
+
+}
+
+function setDraggableOptions() {
+  $('a.console-option-action').each(function (idx, item) {
+    let $this = $(item);
+    let consoleId = $this.data('option-id');
+    let consoleOption = repository.getById(consoleId);
+    layout.createDragSource($this, getConsoleOptionConfig(consoleOption));
+  });
+}
+
+exports.create = (consoleOption) => {
+  var newItemConfig = getConsoleOptionConfig(consoleOption);
+  if (layout.root.contentItems && layout.root.contentItems.length) {
+    layout.root.contentItems[0].addChild(newItemConfig);
+    return;
+  }
+  layout.root.addChild(newItemConfig);
 }
 
 exports.terminateAll = () => {
@@ -95,23 +119,6 @@ exports.updateSize = () => {
 
 exports.initialize = () => {
   layout.init();
-  $('a.console-option-action').each(function (idx, item) {
-    let $this = $(item);
-    let consoleId = $this.data('option-id');
-    let consoleOption = repository.getById(consoleId);
-    layout.createDragSource($this, {
-      type: 'component',
-      title: consoleOption.label,
-      componentName: 'terminal',
-      componentState: {
-        consoleOption,
-        nodePty: {
-          name: 'xterm-color'
-        },
-        xterm: {
-          theme: { background: '#0a0a0a' }
-        }
-      }
-    });
-  });
+  createInitial();
+  setDraggableOptions();
 }

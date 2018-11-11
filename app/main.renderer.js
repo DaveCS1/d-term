@@ -20,9 +20,8 @@ mainRendererWindow.webContents.on('devtools-closed', () => {
   terminalManager.updateSize();
 });
 
-floatingPanel.onConsoleOptionClicked((consoleOption) => {
-  console.log('Clicked', consoleOption);
-  //terminalManager.create(option);
+floatingPanel.onConsoleOptionClicked((option) => {
+  terminalManager.create(option);
 });
 
 floatingPanel.onSettingsOptionClicked(() => {
@@ -36,11 +35,3 @@ settingsModal.onOptionsUpdated(newOptions => {
 settingsModal.initialize();
 floatingPanel.initialize();
 terminalManager.initialize();
-
-/*
-$('#appVersion').text(remote.app.getVersion());
-
-$('a.project-source-action').on('click', () => {
-  remote.shell.openExternal('https://github.com/akasarto/d-term');
-});
-*/

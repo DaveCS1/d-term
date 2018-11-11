@@ -42,7 +42,11 @@ module.exports = class Terminal extends EventEmitter {
       cwd: process.cwd(),
       env: process.env
     });
-    this._nodePty = nodePty.spawn(consoleOption.cwd, [], nodePtyOptions);
+    this._nodePty = nodePty.spawn(
+      consoleOption.cwd,
+      consoleOption.args,
+      nodePtyOptions
+    );
     this._nodePty.on('data', (data) => {
       if (!this._innerTerminal) {
         return;

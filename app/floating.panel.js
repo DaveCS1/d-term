@@ -56,10 +56,18 @@ function makePanelDraggable() {
   }
 }
 
+function setInfo() {
+  // $('#appVersion').text(remote.app.getVersion());
+  // $('a.project-source-action').on('click', () => {
+  //   remote.shell.openExternal('https://github.com/akasarto/d-term');
+  // });
+}
+
 exports.initialize = () => {
   bindSettingsAction();
   loadConsoleOptions();
   makePanelDraggable();
+  setInfo();
 }
 
 exports.onConsoleOptionClicked = (callback) => {
