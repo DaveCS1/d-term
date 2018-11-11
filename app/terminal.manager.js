@@ -5,50 +5,28 @@ const terminal = require('./terminal.instance');
 const newId = require('uuid/v1');
 const _ = require('lodash');
 
-const terminals = [];
-
 const config = {
   settings: {
     showPopoutIcon: false,
     showMaximiseIcon: true,
     showCloseIcon: true
   },
-  content: [{
-    type: 'row',
-    content: [{
-      type: 'component',
-      title: 'Command Prompt',
-      componentName: 'terminal',
-      componentState: {
-        consoleOption: {
-          id: 1,
-          cwd: 'cmd.exe'
-        },
-        nodePty: {
-          name: 'xterm-color',
-          cols: 80,
-          rows: 30
-        },
-        xterm: {
-          theme: { background: '#0a0a0a' },
-          cols: 80,
-          rows: 30
-        }
-      }
-    }]
-  }]
+  content: []
 };
+
+const terminals = [];
 
 let layout = new GoldenLayout(config, document.getElementById('terminals'));
 
-layout.registerComponent('terminal', function (container, descriptor) {
+layout.on('stateChanged', function () {
+  resizeAllTerminals();
+})
 
-  console.log('descriptor', descriptor);
+layout.registerComponent('terminal', function (container, descriptor) {
 
   let element = container.getElement();
 
   container._config.id = newId();
-
   element.css({
     'background-color': descriptor.xterm.theme.background
   });
@@ -82,41 +60,9 @@ layout.registerComponent('terminal', function (container, descriptor) {
 });
 
 function resizeAllTerminals() {
-  let instances = _.filter(terminals, terminal => terminal.pid > 0);
   terminals.forEach(terminal => {
     terminal.resize();
   });
-}
-
-layout.on('stateChanged', function () {
-  resizeAllTerminals();
-})
-
-exports.initialize = () => {
-  layout.init();
-  $('a.console-option-action').each(function (idx, item) {
-    let $this = $(item);
-    let consoleId = $this.data('option-id');
-    let consoleOption = repository.getById(consoleId);
-    layout.createDragSource($this, {
-      type: 'component',
-      title: consoleOption.label,
-      componentName: 'terminal',
-      componentState: {
-        consoleOption,
-        nodePty: {
-          name: 'xterm-color'
-        },
-        xterm: {
-          theme: { background: '#0a0a0a' }
-        }
-      }
-    });
-  });
-}
-
-exports.updateSize = () => {
-  layout.updateSize();
 }
 
 exports.create = (consoleOption) => {
@@ -140,5 +86,32 @@ exports.create = (consoleOption) => {
 exports.terminateAll = () => {
   terminals.forEach(instance => {
     instance.terminate();
+  });
+}
+
+exports.updateSize = () => {
+  layout.updateSize();
+}
+
+exports.initialize = () => {
+  layout.init();
+  $('a.console-option-action').each(function (idx, item) {
+    let $this = $(item);
+    let consoleId = $this.data('option-id');
+    let consoleOption = repository.getById(consoleId);
+    layout.createDragSource($this, {
+      type: 'component',
+      title: consoleOption.label,
+      componentName: 'terminal',
+      componentState: {
+        consoleOption,
+        nodePty: {
+          name: 'xterm-color'
+        },
+        xterm: {
+          theme: { background: '#0a0a0a' }
+        }
+      }
+    });
   });
 }

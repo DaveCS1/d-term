@@ -2,54 +2,45 @@ const { remote } = require('electron');
 const floatingPanel = require('./floating.panel');
 const settingsModal = require('./settings.modal');
 const terminalManager = require('./terminal.manager');
+const mainRendererWindow = remote.getCurrentWindow();
 
-const rendererWindow = remote.getCurrentWindow();
+mainRendererWindow.on('close', () => {
+  terminalManager.terminateAll();
+});
 
-floatingPanel.initialize();
+mainRendererWindow.on('resize', () => {
+  terminalManager.updateSize();
+});
+
+mainRendererWindow.webContents.on('devtools-opened', () => {
+  terminalManager.updateSize();
+});
+
+mainRendererWindow.webContents.on('devtools-closed', () => {
+  terminalManager.updateSize();
+});
 
 floatingPanel.onConsoleOptionClicked((consoleOption) => {
-  console.log('Clicked', consoleOption)
+  console.log('Clicked', consoleOption);
+  //terminalManager.create(option);
 });
 
 floatingPanel.onSettingsOptionClicked(() => {
   settingsModal.show();
 });
 
+settingsModal.onOptionsUpdated(newOptions => {
+  consoleOptions.loadAll();
+});
+
+settingsModal.initialize();
+floatingPanel.initialize();
+terminalManager.initialize();
+
 /*
-currentWindow.on('resize', () => {
-  terminalManager.updateSize();
-});
-
-currentWindow.on('close', () => {
-  terminalManager.terminateAll();
-});
-
-currentWindow.webContents.on('devtools-opened', () => {
-  terminalManager.updateSize();
-});
-
-currentWindow.webContents.on('devtools-closed', () => {
-  terminalManager.updateSize();
-});
-
-consoleOptions.onOptionClicked((option) => {
-  terminalManager.create(option);
-});
-
 $('#appVersion').text(remote.app.getVersion());
 
 $('a.project-source-action').on('click', () => {
   remote.shell.openExternal('https://github.com/akasarto/d-term');
 });
-
-
-
-settingsModal.onOptionsUpdated(newOptions => {
-  consoleOptions.loadAll();
-});
-
-consoleOptions.loadAll();
-terminalManager.initialize();
-
-draggable.drag();
 */

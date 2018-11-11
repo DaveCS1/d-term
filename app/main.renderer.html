@@ -17,8 +17,18 @@
 
 <body>
 
-  <nav id="floating-panel" class="navbar floating-panel has-background-black has-text-white">
-    <div id="floating-panel-handle" class="navbar-brand floating-panel-handle">
+  <!-- Console options template -->
+  <script id="consoleOptionsTemplate" type="text/template">
+    <a class="console-option-action tooltip is-tooltip-top is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
+      <span class="icon is-medium" style="color:{{color}};">
+          <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
+      </span>
+    </a>
+  </script>
+
+  <!-- Floading panel -->
+  <nav class="navbar floating-panel has-background-black has-text-white">
+    <div class="navbar-brand floating-panel-handle">
       <div class="navbar-item is-paddingless">
         <span class="icon is-medium has-text-grey">
           <i class="mdi mdi-24px mdi-drag" aria-hidden="true"></i>
@@ -65,15 +75,6 @@
     </div>
   </nav>
   -->
-
-  <!-- TEMPLATE: Console options -->
-  <script id="consoleOptionsTemplate" type="text/template">
-    <a class="console-option-action tooltip is-tooltip-bottom is-tooltip-primary" data-tooltip="{{label}}" aria-label="{{label}" title="{{label}}" data-option-id="{{id}}">
-      <span class="icon is-medium" style="color:{{color}};">
-          <i class="mdi mdi-24px {{icon}}" aria-hidden="true"></i>
-      </span>
-    </a>
-  </script>
 
   <!-- MODAL: Advanced settings -->
   <div class="modal advanced-settings-modal">

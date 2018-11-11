@@ -1,12 +1,11 @@
 const { EventEmitter } = require('events');
 const repository = require('./repository');
 const mustache = require('mustache');
-
-const _eventEmmiter = new EventEmitter();
+const eventEmitter = new EventEmitter();
 
 function bindSettingsAction() {
   $('a.show-advanced-settings-action').on('click', () => {
-    _eventEmmiter.emit('settings-option-clicked');
+    eventEmitter.emit('settings-option-clicked');
   });
 }
 
@@ -19,7 +18,7 @@ function loadConsoleOptions() {
     $(consoleOptionElement).on('click', function () {
       let optionId = $(this).data('option-id');
       let optionEntity = repository.getById(optionId);
-      _eventEmmiter.emit('console-option-clicked', optionEntity);
+      eventEmitter.emit('console-option-clicked', optionEntity);
     }).appendTo('div.console-options-list');
   });
 }
@@ -64,9 +63,9 @@ exports.initialize = () => {
 }
 
 exports.onConsoleOptionClicked = (callback) => {
-  _eventEmmiter.on('console-option-clicked', callback);
+  eventEmitter.on('console-option-clicked', callback);
 };
 
 exports.onSettingsOptionClicked = (callback) => {
-  _eventEmmiter.on('settings-option-clicked', callback);
+  eventEmitter.on('settings-option-clicked', callback);
 };

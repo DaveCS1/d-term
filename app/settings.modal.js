@@ -8,7 +8,8 @@ const toaster = require('bulma-toast');
 const _eventEmitter = new EventEmitter();
 const _rendererWindow = remote.getCurrentWindow();
 
-let _editor = null;
+let _editorManager = null;
+let _jsonEditorInstance = null;
 
 self.module = undefined;
 
@@ -31,25 +32,23 @@ amdRequire.config({
 loadData = (jsonData) => {
   let data = parseJSONData(jsonData);
   let container = document.getElementById('editor');
-  if (!_editor) {
-    amdRequire(['vs/editor/editor.main'], function () {
-      _editor = monaco.editor.create(container, {
-        value: data,
-        language: 'json',
-        lineNumbers: "on",
-        roundedSelection: false,
-        readOnly: false,
-        theme: "vs-dark"
-      });
+  if (!_jsonEditorInstance) {
+    _jsonEditorInstance = _editorManager.create(container, {
+      value: data,
+      language: 'json',
+      lineNumbers: "on",
+      roundedSelection: false,
+      readOnly: false,
+      theme: "vs-dark"
     });
   } else {
-    _editor.setValue(data);
+    _jsonEditorInstance.setValue(data);
   }
 }
 
 setData = (jsonData) => {
   var parsedData = parseJSONData(jsonData);
-  _editor.setValue(parsedData);
+  _jsonEditorInstance.setValue(parsedData);
 }
 
 closeModal = () => {
@@ -66,7 +65,7 @@ $('a.discard-advanced-settings-action').on('click', () => {
 
 $('a.save-advanced-settings-action').on('click', () => {
   try {
-    let rawData = _editor.getValue();
+    let rawData = _jsonEditorInstance.getValue();
     let parsedData = JSON.parse(rawData);
     repository.save(parsedData);
     _eventEmitter.emit('data-changed', parsedData);
@@ -103,4 +102,10 @@ exports.show = () => {
 
 exports.onOptionsUpdated = (callback) => {
   _eventEmitter.on('data-changed', callback);
+}
+
+exports.initialize = () => {
+  amdRequire(['vs/editor/editor.main'], function () {
+    _editorManager = monaco.editor;
+  });
 }
