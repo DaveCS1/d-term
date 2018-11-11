@@ -1,0 +1,72 @@
+const { EventEmitter } = require('events');
+const repository = require('./repository');
+const mustache = require('mustache');
+
+const _eventEmmiter = new EventEmitter();
+
+function bindSettingsAction() {
+  $('a.show-advanced-settings-action').on('click', () => {
+    _eventEmmiter.emit('settings-option-clicked');
+  });
+}
+
+function loadConsoleOptions() {
+  $('div.console-options-list').html('');
+  let template = $('#consoleOptionsTemplate').html();
+  let consoleOptions = repository.getConsoleOptions();
+  consoleOptions.forEach(option => {
+    let consoleOptionElement = mustache.render(template, option);
+    $(consoleOptionElement).on('click', function () {
+      let optionId = $(this).data('option-id');
+      let optionEntity = repository.getById(optionId);
+      _eventEmmiter.emit('console-option-clicked', optionEntity);
+    }).appendTo('div.console-options-list');
+  });
+}
+
+function makePanelDraggable() {
+  let pos1 = pos2 = pos3 = pos4 = 0;
+  let panel = $('nav.floating-panel');
+  let element = $('nav.floating-panel')[0];
+  let elementHandle = $('div.floating-panel-handle')[0];
+  panel.css({ bottom: '75px', right: '75px' });
+  elementHandle.onmousedown = dragMouseDown;
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    element.style.top = (element.offsetTop - pos2) + "px";
+    element.style.left = (element.offsetLeft - pos1) + "px";
+    element.style.right = "";
+    element.style.bottom = "";
+  }
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+exports.initialize = () => {
+  bindSettingsAction();
+  loadConsoleOptions();
+  makePanelDraggable();
+}
+
+exports.onConsoleOptionClicked = (callback) => {
+  _eventEmmiter.on('console-option-clicked', callback);
+};
+
+exports.onSettingsOptionClicked = (callback) => {
+  _eventEmmiter.on('settings-option-clicked', callback);
+};

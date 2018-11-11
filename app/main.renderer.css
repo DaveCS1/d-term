@@ -11,6 +11,10 @@
   border-radius: 0 !important;
 }
 
+html, body {
+  background: #000000;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -70,16 +74,20 @@
 nav.floating-panel {
   position: absolute;
   border: 1px solid white;
-  transition: opacity .3s ease-out;
-  -webkit-transition: opacity .3s ease-out;
-  /* box-shadow: 0px 0px 150px 5px #cecece; */
   min-width: 375px;
-  opacity: .25;
   height: 52px;
 }
 
-nav.floating-panel:hover {
-  opacity: 1;
+nav.floating-panel:before {
+  position:absolute; left:-1px; top:-1px; content:'';
+  border-top: 10px solid white;
+  border-right: 10px solid transparent;
+}
+
+nav.floating-panel:after {
+  position:absolute; left:-2px; top:-2px; content:'';
+  border-top: 10px solid black;
+  border-right: 10px solid transparent;
 }
 
 nav .floating-panel-handle {

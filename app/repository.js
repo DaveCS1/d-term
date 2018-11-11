@@ -1,8 +1,7 @@
 const _ = require('lodash');
-const uuidv1 = require('uuid/v1');
 const consoleOptionsKey = 'consoleOptions';
 
-exports.getDefaultOptions = () => {
+exports.getDefaultOptions = function() {
   let options = [];
   if (process.platform == 'win32') {
     options.push({
@@ -45,7 +44,7 @@ exports.getDefaultOptions = () => {
   return options;
 }
 
-exports.getAll = () => {
+exports.getConsoleOptions = () => {
   let options = JSON.parse(localStorage.getItem(consoleOptionsKey)) || [];
   if (!options || options.length <= 0) {
     options = this.getDefaultOptions();

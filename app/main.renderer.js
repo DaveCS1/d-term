@@ -1,10 +1,21 @@
 const { remote } = require('electron');
-const currentWindow = remote.getCurrentWindow();
-const terminalManager = require('./terminal.manager');
-const consoleOptions = require('./console.options');
+const floatingPanel = require('./floating.panel');
 const settingsModal = require('./settings.modal');
-const draggable = require('./draggable');
+const terminalManager = require('./terminal.manager');
 
+const rendererWindow = remote.getCurrentWindow();
+
+floatingPanel.initialize();
+
+floatingPanel.onConsoleOptionClicked((consoleOption) => {
+  console.log('Clicked', consoleOption)
+});
+
+floatingPanel.onSettingsOptionClicked(() => {
+  settingsModal.show();
+});
+
+/*
 currentWindow.on('resize', () => {
   terminalManager.updateSize();
 });
@@ -31,9 +42,7 @@ $('a.project-source-action').on('click', () => {
   remote.shell.openExternal('https://github.com/akasarto/d-term');
 });
 
-$('a.show-advanced-settings-action').on('click', () => {
-  settingsModal.show();
-});
+
 
 settingsModal.onOptionsUpdated(newOptions => {
   consoleOptions.loadAll();
@@ -43,3 +52,4 @@ consoleOptions.loadAll();
 terminalManager.initialize();
 
 draggable.drag();
+*/

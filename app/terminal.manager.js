@@ -1,6 +1,6 @@
+const repository = require('./repository');
 const GoldenLayout = require('golden-layout');
 const { remote, ipcRenderer } = require('electron');
-const consolesRepository = require('./console.repository');
 const terminal = require('./terminal.instance');
 const newId = require('uuid/v1');
 const _ = require('lodash');
@@ -97,7 +97,7 @@ exports.initialize = () => {
   $('a.console-option-action').each(function (idx, item) {
     let $this = $(item);
     let consoleId = $this.data('option-id');
-    let consoleOption = consolesRepository.getById(consoleId);
+    let consoleOption = repository.getById(consoleId);
     layout.createDragSource($this, {
       type: 'component',
       title: consoleOption.label,

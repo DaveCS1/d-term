@@ -1,16 +1,16 @@
 const path = require('path');
 const { remote } = require('electron');
 const { EventEmitter } = require('events');
-const currentWindow = remote.getCurrentWindow();
-const consolesRepository = require('./console.repository');
+const repository = require('./repository');
 const amdLoader = require('monaco-editor/min/vs/loader');
 const amdRequire = amdLoader.require;
 const toaster = require('bulma-toast');
-const emitter = new EventEmitter();
+const _eventEmitter = new EventEmitter();
+const _rendererWindow = remote.getCurrentWindow();
+
+let _editor = null;
 
 self.module = undefined;
-
-let editor;
 
 uriFromPath = (_path) => {
   var pathName = path.resolve(_path).replace(/\\/g, '/');
@@ -31,9 +31,9 @@ amdRequire.config({
 loadData = (jsonData) => {
   let data = parseJSONData(jsonData);
   let container = document.getElementById('editor');
-  if (!editor) {
+  if (!_editor) {
     amdRequire(['vs/editor/editor.main'], function () {
-      editor = monaco.editor.create(container, {
+      _editor = monaco.editor.create(container, {
         value: data,
         language: 'json',
         lineNumbers: "on",
@@ -43,13 +43,13 @@ loadData = (jsonData) => {
       });
     });
   } else {
-    editor.setValue(data);
+    _editor.setValue(data);
   }
 }
 
 setData = (jsonData) => {
   var parsedData = parseJSONData(jsonData);
-  editor.setValue(parsedData);
+  _editor.setValue(parsedData);
 }
 
 closeModal = () => {
@@ -57,7 +57,7 @@ closeModal = () => {
 }
 
 $('a.toggle-devtools-action').on('click', () => {
-  currentWindow.webContents.toggleDevTools();
+  _rendererWindow.webContents.toggleDevTools();
 });
 
 $('a.discard-advanced-settings-action').on('click', () => {
@@ -66,10 +66,10 @@ $('a.discard-advanced-settings-action').on('click', () => {
 
 $('a.save-advanced-settings-action').on('click', () => {
   try {
-    let rawData = editor.getValue();
+    let rawData = _editor.getValue();
     let parsedData = JSON.parse(rawData);
-    consolesRepository.save(parsedData);
-    emitter.emit('data-changed', parsedData);
+    repository.save(parsedData);
+    _eventEmitter.emit('data-changed', parsedData);
     closeModal();
   }
   catch (e) {
@@ -81,7 +81,7 @@ $('a.save-advanced-settings-action').on('click', () => {
         closeOnClick: true,
         duration: 2000
       });
-      if (currentWindow.webContents.isDevToolsOpened()) {
+      if (_rendererWindow.webContents.isDevToolsOpened()) {
         throw e;
       }
       return;
@@ -91,16 +91,16 @@ $('a.save-advanced-settings-action').on('click', () => {
 });
 
 $('a.reset-options-action').on('click', () => {
-  let consoleOptions = consolesRepository.getDefaultOptions();
+  let consoleOptions = repository.getDefaultOptions();
   setData(consoleOptions);
 });
 
 exports.show = () => {
   $('.advanced-settings-modal').addClass('is-active');
-  let consoleOptions = consolesRepository.getAll();
+  let consoleOptions = repository.getConsoleOptions();
   loadData(consoleOptions);
 }
 
 exports.onOptionsUpdated = (callback) => {
-  emitter.on('data-changed', callback);
+  _eventEmitter.on('data-changed', callback);
 }
