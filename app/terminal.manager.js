@@ -57,6 +57,10 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
 });
 
+layout.on('initialised', function () {
+  createPrimaryInstance();
+});
+
 layout.on('stateChanged', function () {
   resizeAllTerminals();
 });
@@ -133,6 +137,5 @@ exports.updateSize = () => {
 
 exports.initialize = () => {
   layout.init();
-  createPrimaryInstance();
   setDraggableOptions();
 }
