@@ -1,3 +1,4 @@
+const { remote } = require('electron');
 const { EventEmitter } = require('events');
 const repository = require('./repository');
 const mustache = require('mustache');
@@ -57,10 +58,10 @@ function makePanelDraggable() {
 }
 
 function setInfo() {
-  // $('#appVersion').text(remote.app.getVersion());
-  // $('a.project-source-action').on('click', () => {
-  //   remote.shell.openExternal('https://github.com/akasarto/d-term');
-  // });
+  $('#appVersion').text(remote.app.getVersion());
+  $('a.project-source-action').on('click', () => {
+    remote.shell.openExternal('https://github.com/akasarto/d-term');
+  });
 }
 
 exports.initialize = () => {

@@ -92,4 +92,11 @@ module.exports = class Terminal extends EventEmitter {
     }
   }
 
+  setFocus() {
+    if (this._innerTerminal) {
+      this._innerTerminal.blur();
+      this._innerTerminal.focus()
+    }
+  }
+
 }

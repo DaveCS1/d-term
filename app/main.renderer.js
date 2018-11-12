@@ -8,6 +8,10 @@ mainRendererWindow.on('close', () => {
   terminalManager.terminateAll();
 });
 
+mainRendererWindow.on('focus', () => {
+  terminalManager.focusLastInstance();
+});
+
 mainRendererWindow.on('resize', () => {
   terminalManager.updateSize();
 });

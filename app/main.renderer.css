@@ -94,13 +94,13 @@ nav .floating-panel-handle {
 
 .footer-info {
   width: 100%;
-  opacity: .15;
-  transition: opacity .3s ease-out;
-  -webkit-transition: opacity .3s ease-out;
   position: absolute;
-  bottom: -22px;
+  bottom: -28px;
   z-index: 75;
   left: 0;
+  border-color: #222222;
+  border-style: solid;
+  border-width: 0px 2px 2px 2px;
 }
 
 .footer-info:hover {

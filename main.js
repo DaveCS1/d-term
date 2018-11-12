@@ -2,11 +2,11 @@ const { app, ipcMain } = require('electron');
 const mainWindow = require('./app/main.window');
 
 ipcMain.on('info', (source, data) => {
-  console.log(data);
+  //console.log(data);
 });
 
 process.on('uncaughtException', function (e) {
-  console.log('uncaughtException', e);
+  //console.log('uncaughtException', e);
 });
 
 app.on('window-all-closed', function () {

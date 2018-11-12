@@ -14,7 +14,8 @@ const config = {
   content: []
 };
 
-const terminals = [];
+let terminals = [];
+let latestActiveTerminal = null;
 
 let layout = new GoldenLayout(config, document.getElementById('terminals'));
 
@@ -41,6 +42,8 @@ layout.registerComponent('terminal', function (container, descriptor) {
     terminals.push(instance);
     instance.on('node-pty-ready', (info) => {
       ipcRenderer.send('info', { event: 'node-pty-ready', info });
+      let terminal = _.find(terminals, terminal => terminal.id == info.id);
+      setFocus(terminal);
       loader.remove();
     });
     instance.on('node-pty-exited', (info) => {
@@ -53,6 +56,9 @@ layout.registerComponent('terminal', function (container, descriptor) {
     container.on('resize', () => {
       instance.resize();
     });
+    container.on('focus', () => {
+      console.log('container focus')
+    });
   }, 1000);
 
 });
@@ -64,6 +70,12 @@ layout.on('initialised', function () {
 layout.on('stateChanged', function () {
   resizeAllTerminals();
 });
+
+function setFocus(instance) {
+  if (instance) {
+    instance.setFocus();
+  }
+}
 
 function resizeAllTerminals() {
   terminals.forEach(terminal => {
@@ -83,7 +95,7 @@ function getConsoleOptionConfig(consoleOption) {
       },
       xterm: {
         cursorBlink: true,
-        cursorStyle: 'underline',
+        cursorStyle: 'block',
         rightClickSelectsWord: true,
         theme: { background: '#0a0a0a' }
       }
@@ -132,6 +144,13 @@ exports.terminateAll = () => {
   terminals.forEach(instance => {
     instance.terminate();
   });
+}
+
+exports.focusLastInstance = () => {
+  if (latestActiveTerminal == null && terminals.length) {
+    latestActiveTerminal = terminals[0];
+  }
+  setFocus(latestActiveTerminal);
 }
 
 exports.updateSize = () => {
