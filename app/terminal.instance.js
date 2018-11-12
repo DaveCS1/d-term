@@ -8,6 +8,7 @@ module.exports = class Terminal extends EventEmitter {
   constructor(descriptor) {
     super();
     this._exited = false;
+    this._destroyed = false;
     this._descriptor = descriptor;
     this._wrapperElement = document.getElementById(this._descriptor.id);
     this.createNodePty();
@@ -23,6 +24,10 @@ module.exports = class Terminal extends EventEmitter {
       return 0;
     }
     return this._nodePty.pid;
+  }
+
+  get destroyed() {
+    return this._destroyed;
   }
 
   get exited() {
@@ -42,20 +47,24 @@ module.exports = class Terminal extends EventEmitter {
       cwd: process.cwd(),
       env: process.env
     });
+
     this._nodePty = nodePty.spawn(
       consoleOption.cwd,
       consoleOption.args,
       nodePtyOptions
     );
+
     this._nodePty.on('data', (data) => {
       if (!this._innerTerminal) {
         return;
       }
       this._innerTerminal.write(data);
     });
+
     this._nodePty.on('ready', () => {
       this.emit('node-pty-ready', this.info);
     });
+
     this._nodePty.on('exit', () => {
       this._exited = true;
       this.emit('node-pty-exited', this.info);
@@ -98,6 +107,13 @@ module.exports = class Terminal extends EventEmitter {
   setFocus() {
     if (this._innerTerminal) {
       this._innerTerminal.focus();
+    }
+  }
+
+  destroy() {
+    if (this._nodePty && !this._exited) {
+      this._destroyed = true;
+      this._nodePty.kill();
     }
   }
 

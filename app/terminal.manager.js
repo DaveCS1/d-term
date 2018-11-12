@@ -39,26 +39,37 @@ layout.registerComponent('terminal', function (container, descriptor) {
 
   setTimeout(() => {
     let instance = new terminal(container._config);
+
     terminals.push(instance);
+
     instance.on('node-pty-ready', (info) => {
       ipcRenderer.send('info', { event: 'node-pty-ready', info });
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       setFocus(terminal);
       loader.remove();
     });
+
     instance.on('xterm-focused', (info) => {
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       if (terminal) {
         latestActiveTerminal = terminal;
       }
     });
+
     instance.on('node-pty-exited', (info) => {
       ipcRenderer.send('info', { event: 'node-pty-exited', info });
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       let index = terminals.indexOf(terminal);
       terminals.splice(index, 1);
-      container.close();
+      if (!terminal.destroyed) {
+        container.close();
+      }
     });
+
+    container.on('destroy', () => {
+      instance.destroy();
+    });
+
     container.on('resize', () => {
       instance.resize();
     });
