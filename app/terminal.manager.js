@@ -40,15 +40,6 @@ layout.registerComponent('terminal', function (container, descriptor) {
   setTimeout(() => {
     let instance = new terminal(container._config);
 
-    terminals.push(instance);
-
-    instance.on('node-pty-ready', (info) => {
-      ipcRenderer.send('info', { event: 'node-pty-ready', info });
-      let terminal = _.find(terminals, terminal => terminal.id == info.id);
-      setFocus(terminal);
-      loader.remove();
-    });
-
     instance.on('xterm-focused', (info) => {
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
       if (terminal) {
@@ -67,12 +58,21 @@ layout.registerComponent('terminal', function (container, descriptor) {
     });
 
     container.on('destroy', () => {
-      instance.destroy();
+      let config = container._config;
+      let terminal = _.find(terminals, terminal => terminal.id == config.id);
+      terminal.destroy();
     });
 
     container.on('resize', () => {
-      instance.resize();
+      let config = container._config;
+      let terminal = _.find(terminals, terminal => terminal.id == config.id);
+      terminal.resize();
     });
+
+    terminals.push(instance);
+    setFocus(instance);
+    loader.remove();
+
   }, 1000);
 
 });

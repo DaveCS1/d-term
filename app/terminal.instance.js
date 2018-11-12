@@ -61,10 +61,6 @@ module.exports = class Terminal extends EventEmitter {
       this._innerTerminal.write(data);
     });
 
-    this._nodePty.on('ready', () => {
-      this.emit('node-pty-ready', this.info);
-    });
-
     this._nodePty.on('exit', () => {
       this._exited = true;
       this.emit('node-pty-exited', this.info);
