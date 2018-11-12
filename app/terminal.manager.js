@@ -46,6 +46,12 @@ layout.registerComponent('terminal', function (container, descriptor) {
       setFocus(terminal);
       loader.remove();
     });
+    instance.on('xterm-focused', (info) => {
+      let terminal = _.find(terminals, terminal => terminal.id == info.id);
+      if (terminal) {
+        latestActiveTerminal = terminal;
+      }
+    });
     instance.on('node-pty-exited', (info) => {
       ipcRenderer.send('info', { event: 'node-pty-exited', info });
       let terminal = _.find(terminals, terminal => terminal.id == info.id);
@@ -55,9 +61,6 @@ layout.registerComponent('terminal', function (container, descriptor) {
     });
     container.on('resize', () => {
       instance.resize();
-    });
-    container.on('focus', () => {
-      console.log('container focus')
     });
   }, 1000);
 

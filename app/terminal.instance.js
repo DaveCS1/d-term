@@ -68,6 +68,9 @@ module.exports = class Terminal extends EventEmitter {
     let configs = this._descriptor.componentState.xterm;
     this._innerTerminal = new xterm.Terminal(configs);
     this._innerTerminal.open(this._wrapperElement);
+    this._innerTerminal.on('focus', () => {
+      this.emit('xterm-focused', this.info);
+    });
     this._innerTerminal.on('data', (data) => {
       if (!this._nodePty) {
         return;
@@ -94,8 +97,7 @@ module.exports = class Terminal extends EventEmitter {
 
   setFocus() {
     if (this._innerTerminal) {
-      this._innerTerminal.blur();
-      this._innerTerminal.focus()
+      this._innerTerminal.focus();
     }
   }
 
