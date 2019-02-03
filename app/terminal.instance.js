@@ -1,9 +1,9 @@
 const xterm = require('xterm');
 const nodePty = require('node-pty');
 const { EventEmitter } = require('events');
-const { fit, proposeGeometry } = require('xterm/lib/addons/fit/fit');
+const { fit } = require('xterm/lib/addons/fit/fit');
 
-module.exports = class Terminal extends EventEmitter {
+export class Terminal extends EventEmitter {
 
   constructor(descriptor) {
     super();

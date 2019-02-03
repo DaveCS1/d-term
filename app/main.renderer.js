@@ -1,31 +1,31 @@
 const { remote } = require('electron');
 const floatingPanel = require('./floating.panel');
 const settingsModal = require('./settings.modal');
-const terminalManager = require('./terminal.manager');
+//const terminalManager = require('./terminal.manager');
 const mainRendererWindow = remote.getCurrentWindow();
 
 mainRendererWindow.on('close', () => {
-  terminalManager.terminateAll();
+  //terminalManager.terminateAll();
 });
 
 mainRendererWindow.on('focus', () => {
-  terminalManager.focusLastInstance();
+  //terminalManager.focusLastInstance();
 });
 
 mainRendererWindow.on('resize', () => {
-  terminalManager.updateSize();
+  //terminalManager.updateSize();
 });
 
 mainRendererWindow.webContents.on('devtools-opened', () => {
-  terminalManager.updateSize();
+  //terminalManager.updateSize();
 });
 
 mainRendererWindow.webContents.on('devtools-closed', () => {
-  terminalManager.updateSize();
+  //terminalManager.updateSize();
 });
 
 floatingPanel.onConsoleOptionClicked((option) => {
-  terminalManager.create(option);
+  //terminalManager.create(option);
 });
 
 floatingPanel.onSettingsOptionClicked(() => {
@@ -38,4 +38,4 @@ settingsModal.onOptionsUpdated(newOptions => {
 
 settingsModal.initialize();
 floatingPanel.initialize();
-terminalManager.initialize();
+//terminalManager.initialize();

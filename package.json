@@ -27,29 +27,26 @@
   },
   "homepage": "https://github.com/akasarto/d-term#readme",
   "devDependencies": {
-    "electron": "^4.0.1",
-    "electron-builder": "^20.38.3",
+    "electron": "^4.0.4",
+    "electron-builder": "^20.38.5",
     "electron-rebuild": "^1.8.2"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.1",
-    "@mdi/font": "^3.2.89",
-    "ajv": "^6.6.2",
-    "ajv-keywords": "^3.2.0",
+    "@fortawesome/fontawesome-free": "^5.7.1",
+    "@mdi/font": "^3.4.93",
+    "ajv": "^6.8.1",
+    "ajv-keywords": "^3.3.0",
     "args-parser": "^1.1.0",
     "bulma": "^0.7.2",
     "bulma-slider": "^2.0.0",
     "bulma-toast": "^1.4.0",
     "bulma-tooltip": "^2.0.2",
-    "draggable": "^4.2.0",
     "electron-window-state": "^5.0.3",
-    "golden-layout": "^1.5.9",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "monaco-editor": "^0.15.6",
     "mustache": "^3.0.1",
-    "node-pty": "^0.8.0",
-    "uuid": "^3.3.2",
-    "xterm": "^3.9.1"
+    "node-pty": "^0.8.1",
+    "xterm": "^3.11.0"
   }
 }
